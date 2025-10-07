@@ -1,0 +1,255 @@
+import 'app_localizations.dart';
+
+class AppLocalizationsTe extends AppLocalizations {
+  @override
+  String get appTitle => 'గ్రీన్ ఫార్మ్';
+
+  @override
+  String get welcome => 'గ్రీన్ ఫార్మ్‌కు స్వాగతం';
+
+  @override
+  String get getStarted => 'ప్రారంభించండి';
+
+  @override
+  String get next => 'తరువాత';
+
+  @override
+  String get back => 'వెనుకకు';
+
+  @override
+  String get cancel => 'రద్దు చేయండి';
+
+  @override
+  String get confirm => 'నిర్ధారించండి';
+
+  @override
+  String get save => 'సేవ్ చేయండి';
+
+  @override
+  String get loading => 'లోడ్ అవుతోంది...';
+
+  @override
+  String get error => 'లోపం';
+
+  @override
+  String get success => 'విజయవంతం';
+
+  @override
+  String get retry => 'మళ్లీ ప్రయత్నించండి';
+
+  @override
+  String get chooseLanguage => 'మీ భాషను ఎంచుకోండి';
+
+  @override
+  String get languageSelectionSubtitle => 'కొనసాగించడానికి మీ ఇష్టమైన భాషను ఎంచుకోండి';
+
+  @override
+  String get continueToApp => 'యాప్‌కు వెళ్లండి';
+
+  @override
+  String get languageChangeNote => 'మీరు తరువాత సెట్టింగ్‌లలో భాషను మార్చవచ్చు';
+
+  @override
+  String get goodMorning => 'శుభోదయం';
+
+  @override
+  String get goodAfternoon => 'మధ్యాహ్నం శుభాకాంక్షలు';
+
+  @override
+  String get goodEvening => 'శుభ సాయంత్రం';
+
+  @override
+  String get todayWeather => 'నేటి వాతావరణం';
+
+  @override
+  String get scanPlant => 'మొక్కను స్కాన్ చేయండి';
+
+  @override
+  String get quickTips => 'త్వరిత చిట్కాలు';
+
+  @override
+  String get scheduleReminder => 'రిమైండర్ సెట్ చేయండి';
+
+  @override
+  String get healthReport => 'ఆరోగ్య నివేదిక';
+
+  @override
+  String get myGarden => 'నా తోట';
+
+  @override
+  String get notifications => 'నోటిఫికేషన్లు';
+
+  @override
+  String get scanPlantDisease => 'మొక్క వ్యాధి కోసం స్కాన్ చేయండి';
+
+  @override
+  String get holdSteady => 'కేమరాను స్థిరంగా పట్టుకుని మొక్కపై గురిపెట్టండి';
+
+  @override
+  String get scanningPlant => 'మొక్కను స్కాన్ చేస్తోంది...';
+
+  @override
+  String get takePicture => 'ఫోటో తీయండి';
+
+  @override
+  String get retakePicture => 'మళ్లీ ఫోటో తీయండి';
+
+  @override
+  String get analyzing => 'విశ్లేషిస్తోంది...';
+
+  @override
+  String get scanComplete => 'స్కాన్ పూర్తయింది';
+
+  @override
+  String get proTips => 'ప్రో చిట్కాలు';
+
+  @override
+  String get todayTips => 'నేటి చిట్కాలు';
+
+  @override
+  String get seasonalAdvice => 'కాలానుగుణ సలహాలు';
+
+  @override
+  String get cropCare => 'పంట సంరక్షణ';
+
+  @override
+  String get pestControl => 'కీట నియంత్రణ';
+
+  @override
+  String get soilHealth => 'మట్టి ఆరోగ్యం';
+
+  @override
+  String get irrigation => 'నీటిపారుదల';
+
+  @override
+  String get fertilizer => 'ఎరువులు';
+
+  @override
+  String get reminderTitle => 'వ్యవసాయ రిమైండర్';
+
+  @override
+  String get wateringReminder => 'మొక్కలకు నీళ్లు పెట్టే సమయం';
+
+  @override
+  String get fertilizeReminder => 'పంటలకు ఎరువులు వేసే సమయం';
+
+  @override
+  String get pesticideReminder => 'కీటనాశిని వేసే సమయం';
+
+  @override
+  String get harvestReminder => 'పంట కోసే సమయం దగ్గర పడుతోంది';
+
+  @override
+  String get weatherAlert => 'వాతావరణ హెచ్చరిక';
+
+  @override
+  String get scanResults => 'స్కాన్ ఫలితాలు';
+
+  @override
+  String get diseaseDetected => 'వ్యాధి గుర్తించబడింది';
+
+  @override
+  String get healthyPlant => 'ఆరోగ్యకరమైన మొక్క';
+
+  @override
+  String get recommendations => 'సిఫార్సులు';
+
+  @override
+  String get severity => 'తీవ్రత';
+
+  @override
+  String get treatment => 'చికిత్స';
+
+  @override
+  String get prevention => 'నివారణ';
+
+  @override
+  String get confidence => 'విశ్వాసం';
+
+  @override
+  String get temperature => 'ఉష్ణోగ్రత';
+
+  @override
+  String get humidity => 'తేమ';
+
+  @override
+  String get rainfall => 'వర్షపాతం';
+
+  @override
+  String get windSpeed => 'గాలి వేగం';
+
+  @override
+  String get uvIndex => 'యువి ఇండెక్స్';
+
+  @override
+  String get sunrise => 'సూర్యోదయం';
+
+  @override
+  String get sunset => 'సూర్యాస్తమయం';
+
+  @override
+  String get treatmentRequired => 'చికిత్స అవసరం';
+
+  @override
+  String get immediateAction => 'తక్షణ చర్య';
+
+  @override
+  String get weeklyMaintenance => 'వారపు నిర్వహణ';
+
+  @override
+  String get monthlyTasks => 'నెలవారీ పనులు';
+
+  @override
+  String get organicTreatment => 'సేంద్రీయ చికిత్స';
+
+  @override
+  String get chemicalTreatment => 'రసాయన చికిత్స';
+
+  @override
+  String get mySchedule => 'నా షెడ్యూల్';
+
+  @override
+  String get addTask => 'పని జోడించండి';
+
+  @override
+  String get editTask => 'పని సవరించండి';
+
+  @override
+  String get deleteTask => 'పని తొలగించండి';
+
+  @override
+  String get markComplete => 'పూర్తయిన గుర్తు పెట్టండి';
+
+  @override
+  String get pending => 'పెండింగ్';
+
+  @override
+  String get completed => 'పూర్తయింది';
+
+  @override
+  String get overdue => 'గడువు దాటింది';
+
+  @override
+  String get settings => 'సెట్టింగ్‌లు';
+
+  @override
+  String get language => 'భాష';
+
+  @override
+  String get about => 'గురించి';
+
+  @override
+  String get privacy => 'గోప్యత';
+
+  @override
+  String get terms => 'నియమాలు';
+
+  @override
+  String get support => 'మద్దతు';
+
+  @override
+  String get rateApp => 'యాప్‌ను రేట్ చేయండి';
+
+  @override
+  String get version => 'వెర్షన్';
+}

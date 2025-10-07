@@ -1,0 +1,40 @@
+name: green_farm_app
+description: A comprehensive farming app with plant disease detection for farmers.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  telephony: ^0.2.0
+
+  # Localization and internationalization
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
+  # Essential packages for storage and camera access
+  shared_preferences: ^2.2.3
+  camera: ^0.10.5+9
+
+  # Voice recognition and text-to-speech
+  speech_to_text: ^7.3.0
+  flutter_tts: ^4.0.2
+
+  # SMS autofill for OTP verification
+  sms_autofill: ^2.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
