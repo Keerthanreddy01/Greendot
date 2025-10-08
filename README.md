@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- Green Farm Assistant Banner (centered) -->
 <div align="center">
   <h1>🌱 Green Farm Assistant</h1>
@@ -189,3 +190,7 @@ lib/
 <p align="center">
   <b>Hackathon:</b> AIGNITE 2K25 | Organized by MLSC<br/>
 </p>
+=======
+# GreenDot
+Flutter App
+>>>>>>> a686d1d829f188fc5c47fab47f6ebe4c74622244
