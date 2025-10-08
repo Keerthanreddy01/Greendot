@@ -1,193 +1,124 @@
-<!-- Green Farm Assistant Banner (centered) -->
-<div align="center">
-  <h1>🌱 Green Farm Assistant</h1>
-  <p><strong>Powered by Keerthan Reddy</strong></p>
-</div>
+# 🌱 Green Farm Assistant — Greendot
+
+## 🚀 Greendot – AI-Powered Farming Assistant
+
+**Helping small-scale farmers optimize crop management with AI-driven insights, multilingual support, and practical farm tools.**
 
 ---
 
-<p align="center">
-  <strong>🚀 Greendot – AI-Powered Farming Assistant</strong><br/>
-  <em>Helping farmers optimize crop management with AI, multilingual support, and smart insights</em>
-</p>
+### 🏆 AIGNITE 2K25 Hackathon Submission | Built by: Keerthan Reddy
 
 ---
 
 ## 📖 Project Overview
-The *Green Farm Assistant* is a Flutter-based mobile application designed to empower farmers with AI-assisted tools for plant disease detection, farm management, and agricultural guidance. The app integrates *real-time data, **multi-language support, and **intuitive dashboards* to improve farming efficiency and productivity.
 
-*Key Purpose:*
-- Provide farmers with actionable insights  
-- Detect plant diseases via AI  
-- Offer smart task management and market intelligence  
+**Green Farm Assistant (Greendot)** is a cross-platform **Flutter** mobile application focused on empowering smallholder farmers through easy-to-use AI tools, actionable guidance, and localised market intelligence.
+
+**Core value:** give farmers concise, trustworthy, and timely recommendations so they can make better decisions and reduce crop loss.
+
+**Primary capabilities:** plant disease detection via camera, smart task scheduling, real-time market prices, and multi-language support (13 languages).
+
+### ✅ Goals
+
+* Deliver **actionable, localized insights** based on weather, seasonality, and crop stage.
+* Enable **on-device AI** for fast plant health checks and offline-first usability.
+* Provide **market intelligence** so farmers can choose when and where to sell crops for better returns.
+* Offer an approachable UI/UX tailored for users with limited literacy and intermittent connectivity.
 
 ---
 
-## 🎯 Core Features
-### 1. App Launch & Onboarding
-- Animated Splash Screen with app logo and key features  
-- Multi-language support (12 Indian languages + English)  
-- Demo Mode prompting language selection  
-- Smooth animations (elastic, fade transitions)  
+## 🎯 Key Features & Innovations
 
-### 2. Home Screen – Farmer Dashboard
-- Floating Popup Notifications for urgent alerts  
-- Compact Header with branding & language selector  
-- Weather Widget with farming guidance  
-- Expandable Tasks section for daily activities  
-- Quick Actions for core farming operations  
-- Market Prices from 5 Telangana markets  
-- Plant Health Monitoring with visual indicators  
-- Seasonal Recommendations per current month  
+### 📱 Farmer Dashboard
 
-### 3. Market Prices Feature
-- Real-time crop prices (Rice, Cotton, Turmeric, Chilli, Maize)  
-- Markets: Hyderabad APMC, Warangal, Nizamabad, Karimnagar, Khammam  
-- Price trends with up/down indicators  
-- Distance info for nearby markets  
-- Scrollable horizontal cards  
+A compact Home Screen showing:
 
-### 4. Plant Health Monitoring
-- AI-assisted plant health scores (e.g., Tomatoes 85%, Lettuce 95%)  
-- Status indicators: Excellent, Good, Fair  
-- Issue tracking: pest activity, fertilization, moisture levels  
-- Location-based monitoring  
+* Expandable task cards (priority, due date, progress)
+* Weather guidance and short-term advisories
+* Seasonal crop recommendations and quick actions (scan plant, log expense, list harvest)
 
-### 5. Smart Task Management
-- Expandable task list with details  
-- Priority levels (Urgent, High, Medium, Low)  
-- Time slots & duration tracking  
-- Interactive completion animations  
-- Progress bars for task completion  
+### 🌿 AI Plant Health Monitoring
 
-### 6. Advanced Notification System
-- Floating popups for urgent alerts  
-- Expandable dialogs with full details  
-- Categorization: Disease, Weather, Harvest, Pest, Water alerts  
-- Color-coded alerts and dismissible notifications  
+* Camera-based AI scores (e.g., *Tomato — 85% healthy*) and clear status labels: **Excellent / Good / Fair / Needs Attention**.
+* Detects common issues: pest damage, nutrient deficiency, irrigation problems.
+* On-device inference for privacy and offline capability; multi-language explanations.
+
+### 💰 Real-Time Market Intelligence
+
+* Prices and trend summaries for primary crops: **Rice, Cotton, Turmeric, Chilli, Maize**.
+* Aggregates data for **5 Telangana markets** (e.g., Hyderabad APMC, Warangal) and shows distance to market.
+* Visual trend sparkline and price alert (price above/below threshold).
+
+### 🔔 Smart Task & Notification System
+
+* Task priority levels: **Urgent / High / Medium / Low** with progress tracking.
+* Floating alerts for urgent events (disease outbreak, severe weather, harvest window).
+* Color-coded categories for quick scanning.
+
+### 🌐 Localization & Accessibility
+
+* **13-language** support: English + 12 major Indian languages (Hindi, Telugu, Tamil, Kannada, Marathi, Malayalam, Gujarati, Bengali, Punjabi, Odia, Assamese, Urdu).
+* Farmer-first UI: large touch targets, high-contrast fonts, icons, audio prompts and haptic feedback.
 
 ---
 
 ## 🛠 Technical Implementation
-### Project Structure
 
+**Stack:** Flutter (Dart) — single codebase for Android/iOS.
+
+**Status summary:**
+
+* **Completed:** Full UI/UX, multi-language support (13 languages), task & notification management, demo-ready flows.
+* **Planned / In progress:** AI camera integration (on-device model), live market price APIs, user auth & cloud sync, push notifications, analytics.
+
+**Key dependencies**
+
+* Data & state: `shared_preferences`, `http`.
+* Device I/O: `camera`, `image_picker`, `geolocator`, `permission_handler` (planned).
+* Notifications & animations: `flutter_local_notifications`, `lottie`.
+
+**Project size:** ~2,672 lines of Flutter code — modular, provider-based state management, and reusable widgets.
+
+**Project structure (simplified)**
+
+```
 lib/
 ├── main.dart
-├── screens/
-│   ├── splash_screen.dart
-│   ├── language_selection_screen.dart
-│   ├── home_screen.dart
-│   ├── camera_scanner_screen.dart
-│   ├── pro_tips_screen.dart
-│   └── scan_result_screen.dart
-├── providers/
-│   └── language_provider.dart
-├── services/
-│   ├── notification_service.dart
-│   └── schedule_store.dart
-├── widgets/
-│   ├── bottom_navigation.dart
-│   ├── weather_card.dart
-│   └── treatment_item.dart
-└── l10n/   # Localization files (13 languages)
-
-
-### Dependencies & Technologies
-- Flutter SDK, Dart  
-- flutter_localizations, shared_preferences  
-- camera, image_picker, http  
-- flutter_local_notifications, permission_handler, geolocator  
-- cached_network_image, flutter_spinkit, fluttertoast, lottie  
+├── screens/         # home, splash, scanner, pro_tips
+├── providers/       # language_provider.dart, task_provider.dart
+├── services/        # notification_service.dart, schedule_store.dart
+├── widgets/         # weather_card.dart, bottom_navigation.dart
+└── l10n/            # localization files (13 languages)
+```
 
 ---
 
-## 🎨 UI/UX Design
-- Farmer-first approach with minimal cognitive load  
-- Modern Material Design, gradient backgrounds, rounded corners  
-- Color-coded info: Green = good, Red = urgent, Blue = info  
-- Grid-based layout, horizontal scrollable cards, expandable sections  
-- Accessibility: screen-reader friendly, large touch targets, haptic feedback  
+## 📸 Assets & Demo
+
+Include app logo and screenshots in `/assets`:
+
+* `assets/logo.png` — App logo
+* `assets/screenshot1.png` — Home Screen
+
+*(Screenshots included in the repo for the demo build.)*
 
 ---
 
-## 🌍 Localization & Accessibility
-- 13 languages supported: English, Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Gujarati, Bengali, Punjabi, Odia, Assamese  
-- Accessibility: text overflow handling, high contrast, large touch targets  
+## 📄 How to Run (Demo)
+
+1. Clone the repo.
+2. Install Flutter SDK and required plugins.
+3. `flutter pub get` to fetch dependencies.
+4. Run on device/emulator: `flutter run`.
+
+*(Include `assets/` and `l10n/` in project root for proper demo.)*
 
 ---
 
-## 📊 Data & State Management
-- SharedPreferences for settings & language preferences  
-- Local storage for tasks & notifications  
-- Real-time updates using setState()  
-- Dynamic language selection & progress tracking  
+## 🧾 Contribution & License
 
----
-
-## 🚀 Key Innovations
-- Floating popup notifications for urgent alerts  
-- Expandable task management for reduced cognitive load  
-- Real-time market integration for decision-making  
-- Multi-language plant health analysis  
-- Seasonal intelligence for context-aware guidance  
-
----
-
-## 🎯 Target Users & Use Cases
-- Small-scale farmers (Telugu regions)  
-- Agricultural extension workers & farm consultants  
-- Agricultural students & researchers  
-
-*Use Cases:*
-- Daily farm monitoring (tasks, weather, plant health)  
-- Disease detection (AI camera-based analysis)  
-- Market intelligence (price trends)  
-- Learning & guidance (seasonal tips & pro advice)  
-- Task management with reminders  
-
----
-
-## 📈 Current Status & Next Steps
-*Completed:*
-- Full UI/UX system  
-- Multi-language support  
-- Home dashboard & market integration  
-- Notifications & task management  
-
-*Planned:*
-- AI camera-based disease detection  
-- Real API integration for market prices  
-- Push notifications & user authentication  
-- Data synchronization & backup  
-
----
-
-## 🎉 Project Highlights
-- 2,672 lines of Flutter code  
-- Production-ready UI with zero design flaws  
-- 13-language localization  
-- Scalable and maintainable architecture  
-- Demo-ready mode for hackathon presentation  
-
----
-
-## 📚 References
-- [Flutter Documentation](https://flutter.dev/docs)  
-- [Firebase Documentation](https://firebase.google.com/docs)  
-- Agricultural datasets & resources  
-
----
-
-## 🖼 Assets / Screenshots
-<p align="center">
-  <img src="assets/logo.png" alt="App Logo" width="220" /><br/>
-  <img src="assets/screenshot1.png" alt="Home Screen" width="600" />
-</p>
-
----
-
-<p align="center">
-  <b>Hackathon:</b> AIGNITE 2K25 | Organized by MLSC<br/>
-</p>
 © 2025 Keerthan Reddy. All rights reserved.
-Unauthorized copying or reuse of this repository is prohibited.
+Open to collaboration for dataset collection, model improvement, and local partnerships.
+
+---
+
