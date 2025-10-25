@@ -15,7 +15,7 @@
 
 </div>
 
----
+--
 
 ## 📖 About
 
@@ -273,3 +273,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [Report Bug](https://github.com/yourusername/greendot/issues) • [Request Feature](https://github.com/yourusername/greendot/issues) • [Documentation](https://github.com/yourusername/greendot/wiki)
 
 </div>
+
