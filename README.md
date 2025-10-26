@@ -24,7 +24,7 @@ GreenDot is a comprehensive Flutter-based mobile application designed to revolut
 ### 🎯 Mission
 To bridge the technology gap in agriculture by providing accessible, actionable insights that improve farming efficiency, productivity, and profitability for farmers across India.
 
----
+--
 
 ## ✨ Features
 
@@ -64,7 +64,7 @@ To bridge the technology gap in agriculture by providing accessible, actionable 
   - Full app localization
   - Easy language switching
 
----
+--
 
 ## 🏗️ Architecture
 
@@ -273,4 +273,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [Report Bug](https://github.com/yourusername/greendot/issues) • [Request Feature](https://github.com/yourusername/greendot/issues) • [Documentation](https://github.com/yourusername/greendot/wiki)
 
 </div>
+
 
