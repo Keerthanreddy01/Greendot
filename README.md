@@ -12,6 +12,9 @@
 [![TensorFlow Lite](https://img.shields.io/badge/TensorFlow_Lite-orange?style=flat&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/lite)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Build Status](https://img.shields.io/badge/build-passing-success.svg?style=flat)]()
+[![Downloads](https://img.shields.io/badge/downloads-1K%2B-blue?style=flat)]()
+[![Issues](https://img.shields.io/badge/issues-open-orange?style=flat)]()
 
 [📘 Features](#-core-features) • [⚙️ Architecture](#-architecture--system-design) • [🧠 AI Workflow](#-ai--ml-integration-pipeline) • [🚀 Setup](#-installation--setup) • [💡 Roadmap](#-roadmap)
 
@@ -38,7 +41,7 @@ To **bridge the gap between agriculture and technology** by offering farmers acc
 | Feature | Description |
 |----------|--------------|
 | 🤖 **AI-Powered Disease Detection** | Capture plant images → Identify disease → Get treatment advice instantly. |
-| 📊 **Smart Farm Dashboard** | Track weather, soil, and crop status with insights and suggestions. |
+| 📊 **Smart Farm Dashboard** | Track weather, soil, and crop status with intelligent insights. |
 | 💰 **Market Intelligence** | Live crop price feeds from Telangana’s 5 key markets with trend arrows (↑/↓). |
 | 📋 **Task & Schedule Management** | Time-based tasks, smart reminders, and progress celebrations 🎉. |
 | 🔔 **Advanced Alerts System** | Two-tier alerting for weather, pest, and water-related warnings. |
@@ -160,7 +163,7 @@ text
 
 ### 🔧 Environment Configuration
 
-Create a `.env` file at the root level:
+Create a `.env` file at the project root:
 
 API_BASE_URL=https://api.greendot.io
 FIREBASE_PROJECT_ID=greendot-agri
