@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/notification_service.dart';
+import '../services/voice_assistant_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,11 +18,16 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _textAnimation;
   late Animation<Offset> _slideAnimation;
 
+  double _progress = 0.0;
+  bool _navigated = false;
+  bool _disposed = false;
+
   @override
   void initState() {
     super.initState();
     _initializeAnimations();
-    _checkFirstTime();
+    _startProgress();
+    _bootstrapAndNavigate();
   }
 
   void _initializeAnimations() {
@@ -61,31 +68,54 @@ class _SplashScreenState extends State<SplashScreen>
     // Start animations
     _logoController.forward();
     Future.delayed(const Duration(milliseconds: 500), () {
-      _textController.forward();
+      if (mounted) _textController.forward();
     });
   }
 
-  Future<void> _checkFirstTime() async {
-    await Future.delayed(const Duration(milliseconds: 3000));
+  Future<void> _bootstrapAndNavigate() async {
+    // Show splash immediately; start services in background without blocking
+    // Fire-and-forget (don't delay splash)
+    // ignore: unawaited_futures
+    NotificationService().init();
+    // ignore: unawaited_futures
+    VoiceAssistantService.initialize();
 
-    if (!mounted) return;
+    // Load preference to decide where to go
+    final prefs = await SharedPreferences.getInstance();
+    final bool hasSeenLanguageSelection =
+        prefs.getBool('language_selected') ?? false;
 
-    // DEMO MODE: Always show language selection screen
-    // This ensures users can see the language selection every time for demo purposes
-    Navigator.of(context).pushReplacementNamed('/language');
+    // Give users a moment to see the splash while progress fills
+    await Future.delayed(const Duration(milliseconds: 1600));
 
-    // Original code (commented out for demo):
-    // final prefs = await SharedPreferences.getInstance();
-    // final bool hasSeenLanguageSelection = prefs.getBool('language_selected') ?? false;
-    // if (hasSeenLanguageSelection) {
-    //   Navigator.of(context).pushReplacementNamed('/home');
-    // } else {
-    //   Navigator.of(context).pushReplacementNamed('/language');
-    // }
+    if (!_disposed && !_navigated && mounted) {
+      _navigated = true;
+      if (hasSeenLanguageSelection) {
+        Navigator.of(context).pushReplacementNamed('/home');
+      } else {
+        Navigator.of(context).pushReplacementNamed('/language');
+      }
+    }
+  }
+
+  void _startProgress() {
+    // Simple timed progress to 100% over ~1.6s
+    const total = 32;
+    const tick = Duration(milliseconds: 50);
+    for (int i = 1; i <= total; i++) {
+      Future.delayed(tick * i, () {
+        if (!_disposed && mounted) {
+          setState(() {
+            _progress = i / total;
+          });
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
+    _disposed = true;
     _logoController.dispose();
     _textController.dispose();
     super.dispose();
@@ -115,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Logo Animation
+                      // Logo Animation (lightweight)
                       AnimatedBuilder(
                         animation: _logoAnimation,
                         builder: (context, child) {
@@ -147,7 +177,7 @@ class _SplashScreenState extends State<SplashScreen>
 
                       const SizedBox(height: 30),
 
-                      // App Title Animation
+                      // App Title Animation (lightweight)
                       AnimatedBuilder(
                         animation: _textAnimation,
                         builder: (context, child) {
@@ -177,7 +207,7 @@ class _SplashScreenState extends State<SplashScreen>
                                     ),
                                   ),
                                   const SizedBox(height: 16),
-                                  // Demo badge
+                                  // Demo badge (static)
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 8),
@@ -209,31 +239,27 @@ class _SplashScreenState extends State<SplashScreen>
                         },
                       ),
 
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 40),
 
-                      // Loading indicator
-                      AnimatedBuilder(
-                        animation: _textAnimation,
-                        builder: (context, child) {
-                          return Opacity(
-                            opacity: _textAnimation.value,
-                            child: const SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                strokeWidth: 2,
-                              ),
-                            ),
-                          );
-                        },
+                      // Simple loading bar
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: LinearProgressIndicator(
+                            value: _progress,
+                            minHeight: 6,
+                            backgroundColor: Colors.white.withOpacity(0.3),
+                            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
 
-              // Bottom section
+              // Bottom section (static)
               AnimatedBuilder(
                 animation: _textAnimation,
                 builder: (context, child) {
@@ -243,26 +269,14 @@ class _SplashScreenState extends State<SplashScreen>
                       padding: const EdgeInsets.all(24.0),
                       child: Column(
                         children: [
-                          // Features preview
+                          // Features preview (static icons)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              _buildFeatureIcon(
-                                icon: Icons.camera_alt,
-                                label: 'Plant Scanner',
-                              ),
-                              _buildFeatureIcon(
-                                icon: Icons.wb_sunny,
-                                label: 'Weather',
-                              ),
-                              _buildFeatureIcon(
-                                icon: Icons.schedule,
-                                label: 'Reminders',
-                              ),
-                              _buildFeatureIcon(
-                                icon: Icons.lightbulb,
-                                label: 'Tips',
-                              ),
+                            children: const [
+                              _Feature(icon: Icons.camera_alt, label: 'Plant Scanner'),
+                              _Feature(icon: Icons.wb_sunny, label: 'Weather'),
+                              _Feature(icon: Icons.schedule, label: 'Reminders'),
+                              _Feature(icon: Icons.lightbulb, label: 'Tips'),
                             ],
                           ),
 
@@ -297,10 +311,15 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Widget _buildFeatureIcon({
-    required IconData icon,
-    required String label,
-  }) {
+}
+
+class _Feature extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  const _Feature({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(

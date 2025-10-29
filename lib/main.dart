@@ -18,17 +18,10 @@ import 'screens/consumer_marketplace_screen.dart';
 // import 'screens/pest_control_screen.dart';
 // import 'screens/reports_screen.dart';
 // import 'screens/market_prices_screen.dart';
-import 'services/notification_service.dart';
 import 'services/voice_assistant_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize notification service
-  await NotificationService().init();
-
-  // Initialize voice assistant service
-  await VoiceAssistantService.initialize();
 
   // Set preferred orientations
   await SystemChrome.setPreferredOrientations([
