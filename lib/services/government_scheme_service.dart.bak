@@ -1,0 +1,226 @@
+import '../models/government_scheme_model.dart';
+
+class GovernmentSchemeService {
+  // Demo government schemes
+  static List<GovernmentScheme> getDemoSchemes() {
+    final now = DateTime.now();
+    
+    return [
+      // PM-KISAN
+      GovernmentScheme(
+        id: 'pm_kisan',
+        name: 'PM-KISAN',
+        schemeNameLocal: 'प्रधानमंत्री किसान सम्मान निधि',
+        description: 'Direct income support of ₹6000 per year to all farmer families',
+        descriptionLocal: 'सभी किसान परिवारों को प्रति वर्ष ₹6000 की प्रत्यक्ष आय सहायता',
+        category: 'pension',
+        state: 'All India',
+        eligibility: ['All farmer families with cultivable land'],
+        benefits: ['₹6000 per year in 3 installments'],
+        benefitAmount: 6000,
+        howToApply: 'Visit nearest CSC or apply online at pmkisan.gov.in',
+        applyUrl: 'https://pmkisan.gov.in',
+        deadline: DateTime(now.year, 12, 31),
+        imageUrl: '',
+        isActive: true,
+        iconName: '💰',
+        documents: ['Aadhaar Card', 'Land Records', 'Bank Account'],
+      ),
+      
+      // Crop Insurance
+      GovernmentScheme(
+        id: 'pmfby',
+        schemeName: 'Pradhan Mantri Fasal Bima Yojana',
+        schemeNameLocal: 'प्रधानमंत्री फसल बीमा योजना',
+        description: 'Comprehensive crop insurance against natural calamities',
+        descriptionLocal: 'प्राकृतिक आपदाओं के खिलाफ व्यापक फसल बीमा',
+        category: 'insurance',
+        benefitAmount: 200000,
+        eligibility: 'All farmers growing notified crops',
+        howToApply: 'Register within 7 days of sowing at pmfby.gov.in',
+        deadline: DateTime(now.year, now.month + 1, 15),
+        isActive: true,
+        iconName: '🛡️',
+        documents: ['Aadhaar', 'Land Records', 'Sowing Certificate'],
+      ),
+      
+      // Kisan Credit Card
+      GovernmentScheme(
+        id: 'kcc',
+        schemeName: 'Kisan Credit Card',
+        schemeNameLocal: 'किसान क्रेडिट कार्ड',
+        description: 'Short term credit for agriculture at 4% interest',
+        descriptionLocal: '4% ब्याज पर कृषि के लिए अल्पकालिक ऋण',
+        category: 'loan',
+        benefitAmount: 300000,
+        eligibility: 'Individual farmers, tenant farmers, sharecroppers',
+        howToApply: 'Visit nearest bank branch with land documents',
+        deadline: DateTime(now.year, 12, 31),
+        isActive: true,
+        iconName: '💳',
+        documents: ['Aadhaar', 'PAN Card', 'Land Records', 'Photo'],
+      ),
+      
+      // Solar Pump Subsidy
+      GovernmentScheme(
+        id: 'kusum',
+        schemeName: 'PM-KUSUM Solar Pump Subsidy',
+        schemeNameLocal: 'पीएम-कुसुम सौर पंप सब्सिडी',
+        description: 'Install solar pumps with 60% subsidy',
+        descriptionLocal: '60% सब्सिडी के साथ सोलर पंप स्थापित करें',
+        category: 'subsidy',
+        benefitAmount: 180000,
+        eligibility: 'Farmers with agricultural land',
+        howToApply: 'Apply through State Agriculture Department',
+        deadline: DateTime(now.year, 11, 30),
+        isActive: true,
+        iconName: '☀️',
+        documents: ['Land Records', 'Electricity Bill', 'Bank Account'],
+      ),
+      
+      // Soil Health Card
+      GovernmentScheme(
+        id: 'shc',
+        schemeName: 'Soil Health Card Scheme',
+        schemeNameLocal: 'मृदा स्वास्थ्य कार्ड योजना',
+        description: 'Free soil testing and health card',
+        descriptionLocal: 'मुफ्त मिट्टी परीक्षण और स्वास्थ्य कार्ड',
+        category: 'training',
+        benefitAmount: 0,
+        eligibility: 'All farmers',
+        howToApply: 'Visit nearest Soil Testing Lab or Agriculture Office',
+        deadline: DateTime(now.year, 12, 31),
+        isActive: true,
+        iconName: '🧪',
+        documents: ['Aadhaar Card', 'Land Records'],
+      ),
+      
+      // Micro Irrigation
+      GovernmentScheme(
+        id: 'micro_irrigation',
+        schemeName: 'Micro Irrigation Scheme',
+        schemeNameLocal: 'सूक्ष्म सिंचाई योजना',
+        description: 'Drip and sprinkler irrigation with 55% subsidy',
+        descriptionLocal: 'ड्रिप और स्प्रिंकलर सिंचाई पर 55% सब्सिडी',
+        category: 'subsidy',
+        benefitAmount: 165000,
+        eligibility: 'Small and marginal farmers',
+        howToApply: 'Apply at District Horticulture Office',
+        deadline: DateTime(now.year, 10, 31),
+        isActive: true,
+        iconName: '💧',
+        documents: ['Land Records', 'Bank Account', 'Quotation'],
+      ),
+      
+      // Rythu Bharosa (Telangana State Scheme)
+      GovernmentScheme(
+        id: 'rythu_bharosa',
+        schemeName: 'Rythu Bharosa',
+        schemeNameLocal: 'రైతు భరోసా',
+        description: 'Telangana state scheme - ₹5000 per acre per season',
+        descriptionLocal: 'తెలంగాణ రాష్ట్ర పథకం - ప్రతి సీజన్కు ఎకరాకు ₹5000',
+        category: 'pension',
+        benefitAmount: 5000,
+        eligibility: 'Farmers in Telangana with land records',
+        howToApply: 'Automatic transfer to registered farmers',
+        deadline: DateTime(now.year, 12, 31),
+        isActive: true,
+        iconName: '🌾',
+        documents: ['Land Records', 'Bank Account', 'Aadhaar'],
+      ),
+      
+      // Organic Farming
+      GovernmentScheme(
+        id: 'pkvy',
+        schemeName: 'Paramparagat Krishi Vikas Yojana',
+        schemeNameLocal: 'परम्परागत कृषि विकास योजना',
+        description: 'Promote organic farming with ₹50,000 per hectare',
+        descriptionLocal: 'जैविक खेती को बढ़ावा - ₹50,000 प्रति हेक्टेयर',
+        category: 'subsidy',
+        benefitAmount: 50000,
+        eligibility: 'Farmers adopting organic farming',
+        howToApply: 'Form cluster of 50 farmers and apply',
+        deadline: DateTime(now.year, 9, 30),
+        isActive: true,
+        iconName: '🌱',
+        documents: ['Land Records', 'Group Registration', 'Bank Account'],
+      ),
+    ];
+  }
+
+  // Demo notifications
+  static List<SchemeNotification> getDemoNotifications() {
+    final now = DateTime.now();
+    
+    return [
+      SchemeNotification(
+        id: 'notif_1',
+        schemeId: 'pm_kisan',
+        title: 'PM-KISAN Payment Received',
+        message: '₹2000 credited to your account for Kharif 2025',
+        notificationDate: now.subtract(const Duration(hours: 2)),
+        isRead: false,
+        type: 'approved',
+      ),
+      SchemeNotification(
+        id: 'notif_2',
+        schemeId: 'pmfby',
+        title: 'Crop Insurance Reminder',
+        message: 'Last 3 days to register for Rabi crop insurance',
+        notificationDate: now.subtract(const Duration(days: 1)),
+        isRead: false,
+        type: 'reminder',
+      ),
+      SchemeNotification(
+        id: 'notif_3',
+        schemeId: 'kusum',
+        title: 'New Scheme Alert',
+        message: 'Solar pump subsidy applications now open!',
+        notificationDate: now.subtract(const Duration(days: 2)),
+        isRead: true,
+        type: 'new',
+      ),
+      SchemeNotification(
+        id: 'notif_4',
+        schemeId: 'rythu_bharosa',
+        title: 'Rythu Bharosa Payment',
+        message: '₹5000 per acre will be credited by 15th Nov',
+        notificationDate: now.subtract(const Duration(days: 3)),
+        isRead: false,
+        type: 'approved',
+      ),
+    ];
+  }
+
+  // Get active schemes
+  static List<GovernmentScheme> getActiveSchemes() {
+    return getDemoSchemes().where((scheme) => scheme.isActive).toList();
+  }
+
+  // Get schemes by category
+  static List<GovernmentScheme> getSchemesByCategory(String category) {
+    return getDemoSchemes()
+        .where((scheme) => scheme.category == category)
+        .toList();
+  }
+
+  // Get unread notifications
+  static List<SchemeNotification> getUnreadNotifications() {
+    return getDemoNotifications().where((notif) => !notif.isRead).toList();
+  }
+
+  // Get notifications count
+  static int getUnreadCount() {
+    return getUnreadNotifications().length;
+  }
+
+  // Search schemes
+  static List<GovernmentScheme> searchSchemes(String query) {
+    final lowerQuery = query.toLowerCase();
+    return getDemoSchemes()
+        .where((scheme) =>
+            scheme.schemeName.toLowerCase().contains(lowerQuery) ||
+            scheme.description.toLowerCase().contains(lowerQuery))
+        .toList();
+  }
+}

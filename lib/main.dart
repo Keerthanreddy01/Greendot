@@ -14,13 +14,13 @@ import 'screens/farmer_marketplace_screen.dart';
 import 'screens/consumer_marketplace_screen.dart';
 import 'features/ai_disease_detection/ai_disease_detection_screen.dart';
 import 'features/crop_recommendation/crop_recommendation_screen.dart';
+import 'screens/government_schemes_screen.dart';
 // import 'screens/crop_deal_screen.dart' as crop_deal;
 // import 'screens/schedule_screen.dart';
 // import 'screens/profile_screen.dart';
 // import 'screens/irrigation_screen.dart';
 // import 'screens/pest_control_screen.dart';
 // import 'screens/reports_screen.dart';
-// import 'screens/market_prices_screen.dart';
 import 'services/voice_assistant_service.dart';
 
 void main() async {
@@ -172,6 +172,8 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         '/camera': (context) => const CameraScannerScreen(),
         '/ai-disease-detection': (context) => const AIDiseaseDetectionScreen(),
         '/crop-recommendation': (context) => const CropRecommendationScreen(),
+        '/government-schemes': (context) => const GovernmentSchemesScreen(),
+        '/market-prices': (context) => const MarketPricesScreen(),
         '/tips': (context) => const ProTipsScreen(),
         '/scan-result': (context) => const ScanResultScreen(),
         // '/schedule': (context) => const ScheduleScreen(),
@@ -179,7 +181,6 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         // '/irrigation': (context) => const IrrigationScreen(),
         // '/pest-control': (context) => const PestControlScreen(),
         // '/reports': (context) => const ReportsScreen(),
-        // '/market-prices': (context) => const MarketPricesScreen(),
         // New marketplace routes
         '/marketplace': (context) => const FarmerMarketplaceScreen(),
         '/consumer-marketplace': (context) => const ConsumerMarketplaceScreen(),
