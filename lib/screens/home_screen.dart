@@ -134,27 +134,19 @@ class _HomeScreenState extends State<HomeScreen>
       _notifications = [
         {
           'id': '1',
-          'title': 'Weather Alert',
-          'message': 'Rain expected tomorrow. Cover sensitive plants.',
+          'title': 'Weather Update',
+          'message': 'Perfect weather for planting this week!',
           'type': 'weather',
-          'priority': 'high',
+          'priority': 'low',
           'timestamp': DateTime.now().subtract(const Duration(hours: 2)),
         },
         {
           'id': '2',
-          'title': 'Disease Alert',
-          'message': 'Blight detected in sector 3. Check tomato plants.',
-          'type': 'disease',
-          'priority': 'urgent',
+          'title': 'Tip of the Day',
+          'message': 'Morning is the best time for irrigation.',
+          'type': 'info',
+          'priority': 'low',
           'timestamp': DateTime.now().subtract(const Duration(hours: 5)),
-        },
-        {
-          'id': '3',
-          'title': 'Harvest Ready',
-          'message': 'Corn in field 2 is ready for harvest.',
-          'type': 'harvest',
-          'priority': 'medium',
-          'timestamp': DateTime.now().subtract(const Duration(days: 1)),
         },
       ];
 
@@ -2304,6 +2296,20 @@ class _HomeScreenState extends State<HomeScreen>
         'description': 'Check plant health',
       },
       {
+        'icon': Icons.bug_report,
+        'label': 'AI Disease Detection',
+        'color': const Color(0xFFE91E63),
+        'route': '/ai-disease-detection',
+        'description': 'Detect plant diseases',
+      },
+      {
+        'icon': Icons.agriculture,
+        'label': 'Crop Advisor',
+        'color': const Color(0xFF4CAF50),
+        'route': '/crop-recommendation',
+        'description': 'AI crop recommendations',
+      },
+      {
         'icon': Icons.water_drop,
         'label': 'Water Plants',
         'color': const Color(0xFF00BCD4),
@@ -2344,7 +2350,7 @@ class _HomeScreenState extends State<HomeScreen>
             crossAxisCount: 2,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
-            childAspectRatio: 1.8,
+            childAspectRatio: 1.6,
           ),
           itemCount: actions.length,
           itemBuilder: (context, index) {

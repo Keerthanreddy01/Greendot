@@ -8,7 +8,7 @@ class ForumPost {
   final List<String> images;
   final List<String> tags;
   final DateTime createdAt;
-  final int likes;
+  final List<String> likes; // Changed to List<String> to store user IDs
   final int comments;
   final bool isLiked;
 
@@ -38,7 +38,7 @@ class ForumPost {
       images: List<String>.from(json['images'] ?? []),
       tags: List<String>.from(json['tags'] ?? []),
       createdAt: DateTime.parse(json['createdAt']),
-      likes: json['likes'] ?? 0,
+      likes: List<String>.from(json['likes'] ?? []),
       comments: json['comments'] ?? 0,
       isLiked: json['isLiked'] ?? false,
     );
@@ -70,7 +70,7 @@ class Comment {
   final String userAvatar;
   final String content;
   final DateTime createdAt;
-  final int likes;
+  final List<String> likes;
 
   Comment({
     required this.id,
@@ -92,7 +92,7 @@ class Comment {
       userAvatar: json['userAvatar'] ?? '',
       content: json['content'] ?? '',
       createdAt: DateTime.parse(json['createdAt']),
-      likes: json['likes'] ?? 0,
+      likes: List<String>.from(json['likes'] ?? []),
     );
   }
 

@@ -45,29 +45,45 @@ class Expense {
 class FinancialSummary {
   final double totalIncome;
   final double totalExpense;
+  final double totalExpenses; // Alias
   final double netProfit;
+  final double profit; // Alias
+  final double profitMargin;
   final Map<String, double> expenseByCategory;
+  final Map<String, double> categoryBreakdown; // Alias
   final Map<String, double> incomeBySource;
   final List<MonthlyData> monthlyData;
+  final int transactionCount;
 
   FinancialSummary({
     required this.totalIncome,
     required this.totalExpense,
     required this.netProfit,
+    required this.profitMargin,
     required this.expenseByCategory,
     required this.incomeBySource,
     required this.monthlyData,
-  });
+    required this.transactionCount,
+  })  : totalExpenses = totalExpense,
+        profit = netProfit,
+        categoryBreakdown = expenseByCategory;
 }
 
 class MonthlyData {
   final String month;
+  final int year;
+  final int monthNumber;
   final double income;
   final double expense;
+  final double expenses; // Alias for expense
+  final double profit;
 
   MonthlyData({
     required this.month,
+    required this.year,
+    required this.monthNumber,
     required this.income,
     required this.expense,
-  });
+    required this.profit,
+  }) : expenses = expense;
 }

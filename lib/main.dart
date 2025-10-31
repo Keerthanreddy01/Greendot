@@ -13,6 +13,7 @@ import 'screens/scan_result_screen.dart';
 import 'screens/farmer_marketplace_screen.dart';
 import 'screens/consumer_marketplace_screen.dart';
 import 'features/ai_disease_detection/ai_disease_detection_screen.dart';
+import 'features/crop_recommendation/crop_recommendation_screen.dart';
 // import 'screens/crop_deal_screen.dart' as crop_deal;
 // import 'screens/schedule_screen.dart';
 // import 'screens/profile_screen.dart';
@@ -170,6 +171,7 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         '/home': (context) => const HomeScreen(),
         '/camera': (context) => const CameraScannerScreen(),
         '/ai-disease-detection': (context) => const AIDiseaseDetectionScreen(),
+        '/crop-recommendation': (context) => const CropRecommendationScreen(),
         '/tips': (context) => const ProTipsScreen(),
         '/scan-result': (context) => const ScanResultScreen(),
         // '/schedule': (context) => const ScheduleScreen(),

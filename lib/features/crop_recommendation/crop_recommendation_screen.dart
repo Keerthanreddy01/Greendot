@@ -510,7 +510,7 @@ class _CropRecommendationScreenState extends State<CropRecommendationScreen>
             label,
             style: TextStyle(
               fontSize: 12,
-              color: color.shade800,
+              color: color.withOpacity(0.9),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -595,7 +595,7 @@ class _CropRecommendationScreenState extends State<CropRecommendationScreen>
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: color.shade700,
+                color: color.withOpacity(0.9),
               ),
             ),
           ],
@@ -606,7 +606,7 @@ class _CropRecommendationScreenState extends State<CropRecommendationScreen>
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.check_circle, size: 16, color: color.shade300),
+                  Icon(Icons.check_circle, size: 16, color: color.withOpacity(0.5)),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
