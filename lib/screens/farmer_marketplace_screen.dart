@@ -955,8 +955,11 @@ class _FarmerMarketplaceScreenState extends State<FarmerMarketplaceScreen>
 
   Widget _buildPriceCard(Map<String, dynamic> priceData) {
     final traders = priceData['traders'] as List<Map<String, dynamic>>;
-    final bestTrader = traders.where((t) => t['assured'] == true)
-        .reduce((a, b) => a['price'] > b['price'] ? a : b);
+    final assuredTraders = traders.where((t) => t['assured'] == true).toList();
+    final bestTrader = assuredTraders.isNotEmpty 
+        ? assuredTraders.reduce((Map<String, dynamic> a, Map<String, dynamic> b) => 
+            (a['price'] as num) > (b['price'] as num) ? a : b)
+        : traders.first;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
