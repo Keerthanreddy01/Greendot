@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../services/notification_service.dart';
 import '../services/voice_assistant_service.dart';
 
@@ -80,21 +79,22 @@ class _SplashScreenState extends State<SplashScreen>
     // ignore: unawaited_futures
     VoiceAssistantService.initialize();
 
-    // Load preference to decide where to go
-    final prefs = await SharedPreferences.getInstance();
-    final bool hasSeenLanguageSelection =
-        prefs.getBool('language_selected') ?? false;
-
     // Give users a moment to see the splash while progress fills
     await Future.delayed(const Duration(milliseconds: 1600));
 
     if (!_disposed && !_navigated && mounted) {
       _navigated = true;
-      if (hasSeenLanguageSelection) {
-        Navigator.of(context).pushReplacementNamed('/home');
-      } else {
-        Navigator.of(context).pushReplacementNamed('/language');
-      }
+      // DEMO MODE: Always show language selection screen
+      Navigator.of(context).pushReplacementNamed('/language');
+      
+      // Original code (commented out for demo):
+      // final prefs = await SharedPreferences.getInstance();
+      // final bool hasSeenLanguageSelection = prefs.getBool('language_selected') ?? false;
+      // if (hasSeenLanguageSelection) {
+      //   Navigator.of(context).pushReplacementNamed('/home');
+      // } else {
+      //   Navigator.of(context).pushReplacementNamed('/language');
+      // }
     }
   }
 

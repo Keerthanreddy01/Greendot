@@ -85,4 +85,55 @@ class AppLocalizationsPa extends AppLocalizations {
   @override String get support => 'ਸਹਾਇਤਾ';
   @override String get rateApp => 'ਐਪ ਨੂੰ ਰੇਟ ਕਰੋ';
   @override String get version => 'ਸੰਸਕਰਣ';
+
+  @override
+  String get quickActions => 'ਤੁਰੰਤ ਕਾਰਵਾਈਆਂ';
+
+  @override
+  String get weatherToday => 'ਅੱਜ ਦਾ ਮੌਸਮ';
+
+  @override
+  String get plantScanner => 'ਪੌਦਾ ਸਕੈਨਰ';
+
+  @override
+  String get marketplace => 'ਬਾਜ਼ਾਰ';
+
+  @override
+  String get voiceAssistant => 'ਵੌਇਸ ਅਸਿਸਟੈਂਟ';
+
+  @override
+  String get home => 'ਹੋਮ';
+
+  @override
+  String get schedule => 'ਸਮਾਂ-ਸਾਰਣੀ';
+
+  @override
+  String get profile => 'ਪ੍ਰੋਫਾਈਲ';
+
+  @override
+  String get more => 'ਹੋਰ';
+
+  @override
+  String get todayTasks => 'ਅੱਜ ਦੇ ਕੰਮ';
+
+  @override
+  String get tasks => 'ਕੰਮ';
+
+  @override
+  String get viewAll => 'ਸਭ ਦੇਖੋ';
+
+  @override
+  String get noTasks => 'ਕੋਈ ਕੰਮ ਨਹੀਂ';
+
+  @override
+  String get sunny => 'ਧੁੱਪ';
+
+  @override
+  String get cloudy => 'ਬੱਦਲਵਾਈ';
+
+  @override
+  String get rainy => 'ਬਾਰਿਸ਼';
+
+  @override
+  String get stormy => 'ਤੂਫ਼ਾਨ';
 }

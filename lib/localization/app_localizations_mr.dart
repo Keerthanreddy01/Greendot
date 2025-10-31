@@ -169,4 +169,56 @@ class AppLocalizationsMr extends AppLocalizations {
   String get rateApp => 'अॅप रेट करा';
   @override
   String get version => 'आवृत्ती';
+
+  @override
+  String get quickActions => 'द्रुत कृती';
+
+  @override
+  String get weatherToday => 'आजचे हवामान';
+
+  @override
+  String get plantScanner => 'वनस्पती स्कॅनर';
+
+  @override
+  String get marketplace => 'बाजारपेठ';
+
+  @override
+  String get voiceAssistant => 'व्हॉइस असिस्टंट';
+
+  @override
+  String get home => 'मुख्यपृष्ठ';
+
+  @override
+  String get schedule => 'वेळापत्रक';
+
+  @override
+  String get profile => 'प्रोफाइल';
+
+  @override
+  String get more => 'अधिक';
+
+  @override
+  String get todayTasks => 'आजची कामे';
+
+  @override
+  String get tasks => 'कामे';
+
+  @override
+  String get viewAll => 'सर्व पहा';
+
+  @override
+  String get noTasks => 'कामे नाहीत';
+
+  @override
+  String get sunny => 'उन्हाळी';
+
+  @override
+  String get cloudy => 'ढगाळ';
+
+  @override
+  String get rainy => 'पावसाळी';
+
+  @override
+  String get stormy => 'वादळी';
 }
+

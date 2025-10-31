@@ -169,4 +169,56 @@ class AppLocalizationsMl extends AppLocalizations {
   String get rateApp => 'ആപ്പ് റേറ്റ് ചെയ്യുക';
   @override
   String get version => 'പതിപ്പ്';
+
+  @override
+  String get quickActions => 'ദ്രുത പ്രവർത്തനങ്ങൾ';
+
+  @override
+  String get weatherToday => 'ഇന്നത്തെ കാലാവസ്ഥ';
+
+  @override
+  String get plantScanner => 'സസ്യ സ്കാനർ';
+
+  @override
+  String get marketplace => 'മാർക്കറ്റ്പ്ലേസ്';
+
+  @override
+  String get voiceAssistant => 'വോയ്‌സ് അസിസ്റ്റന്റ്';
+
+  @override
+  String get home => 'ഹോം';
+
+  @override
+  String get schedule => 'ഷെഡ്യൂൾ';
+
+  @override
+  String get profile => 'പ്രൊഫൈൽ';
+
+  @override
+  String get more => 'കൂടുതൽ';
+
+  @override
+  String get todayTasks => 'ഇന്നത്തെ ജോലികൾ';
+
+  @override
+  String get tasks => 'ജോലികൾ';
+
+  @override
+  String get viewAll => 'എല്ലാം കാണുക';
+
+  @override
+  String get noTasks => 'ജോലികൾ ഇല്ല';
+
+  @override
+  String get sunny => 'വെയിൽ';
+
+  @override
+  String get cloudy => 'മേഘാവൃതം';
+
+  @override
+  String get rainy => 'മഴ';
+
+  @override
+  String get stormy => 'കൊടുങ്കാറ്റ്';
 }
+

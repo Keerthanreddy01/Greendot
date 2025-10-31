@@ -252,4 +252,55 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get version => 'பதிப்பு';
+
+  @override
+  String get quickActions => 'விரைவு செயல்கள்';
+
+  @override
+  String get weatherToday => 'இன்றைய வானிலை';
+
+  @override
+  String get plantScanner => 'தாவர ஸ்கேனர்';
+
+  @override
+  String get marketplace => 'சந்தை';
+
+  @override
+  String get voiceAssistant => 'குரல் உதவியாளர்';
+
+  @override
+  String get home => 'முகப்பு';
+
+  @override
+  String get schedule => 'அட்டவணை';
+
+  @override
+  String get profile => 'சுயவிவரம்';
+
+  @override
+  String get more => 'மேலும்';
+
+  @override
+  String get todayTasks => 'இன்றைய பணிகள்';
+
+  @override
+  String get tasks => 'பணிகள்';
+
+  @override
+  String get viewAll => 'அனைத்தையும் பார்';
+
+  @override
+  String get noTasks => 'பணிகள் இல்லை';
+
+  @override
+  String get sunny => 'வெயில்';
+
+  @override
+  String get cloudy => 'மேகமூட்டம்';
+
+  @override
+  String get rainy => 'மழை';
+
+  @override
+  String get stormy => 'புயல்';
 }

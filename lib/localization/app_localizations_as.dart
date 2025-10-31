@@ -85,4 +85,55 @@ class AppLocalizationsAs extends AppLocalizations {
   @override String get support => 'সহায়';
   @override String get rateApp => 'এপ্‌ক ৰেটিং দিয়ক';
   @override String get version => 'সংস্কৰণ';
+
+  @override
+  String get quickActions => 'দ্ৰুত কাৰ্য';
+
+  @override
+  String get weatherToday => 'আজিৰ বতৰ';
+
+  @override
+  String get plantScanner => 'উদ্ভিদ স্কেনাৰ';
+
+  @override
+  String get marketplace => 'বজাৰ';
+
+  @override
+  String get voiceAssistant => 'ভইচ সহায়ক';
+
+  @override
+  String get home => 'গৃহ';
+
+  @override
+  String get schedule => 'সময়সূচী';
+
+  @override
+  String get profile => 'প্ৰফাইল';
+
+  @override
+  String get more => 'অধিক';
+
+  @override
+  String get todayTasks => 'আজিৰ কাম';
+
+  @override
+  String get tasks => 'কাম';
+
+  @override
+  String get viewAll => 'সকলো চাওক';
+
+  @override
+  String get noTasks => 'কোনো কাম নাই';
+
+  @override
+  String get sunny => 'ৰদালি';
+
+  @override
+  String get cloudy => 'মেঘাচ্ছন্ন';
+
+  @override
+  String get rainy => 'বৰষুণীয়া';
+
+  @override
+  String get stormy => 'ধুমুহা';
 }

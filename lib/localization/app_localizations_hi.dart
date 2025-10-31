@@ -262,4 +262,55 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get version => 'संस्करण';
+
+  @override
+  String get quickActions => 'त्वरित कार्रवाई';
+
+  @override
+  String get weatherToday => 'आज का मौसम';
+
+  @override
+  String get plantScanner => 'पौधा स्कैनर';
+
+  @override
+  String get marketplace => 'बाजार';
+
+  @override
+  String get voiceAssistant => 'वॉयस असिस्टेंट';
+
+  @override
+  String get home => 'होम';
+
+  @override
+  String get schedule => 'शेड्यूल';
+
+  @override
+  String get profile => 'प्रोफ़ाइल';
+
+  @override
+  String get more => 'और';
+
+  @override
+  String get todayTasks => 'आज के कार्य';
+
+  @override
+  String get tasks => 'कार्य';
+
+  @override
+  String get viewAll => 'सभी देखें';
+
+  @override
+  String get noTasks => 'कोई कार्य नहीं';
+
+  @override
+  String get sunny => 'धूप';
+
+  @override
+  String get cloudy => 'बादल';
+
+  @override
+  String get rainy => 'बारिश';
+
+  @override
+  String get stormy => 'तूफ़ान';
 }

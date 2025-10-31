@@ -110,4 +110,29 @@ abstract class AppLocalizations {
   String get support;
   String get rateApp;
   String get version;
+
+  // Quick Actions
+  String get quickActions;
+  String get weatherToday;
+  String get plantScanner;
+  String get marketplace;
+  String get voiceAssistant;
+
+  // Bottom Navigation
+  String get home;
+  String get schedule;
+  String get profile;
+  String get more;
+
+  // Tasks
+  String get todayTasks;
+  String get tasks;
+  String get viewAll;
+  String get noTasks;
+
+  // Weather Status
+  String get sunny;
+  String get cloudy;
+  String get rainy;
+  String get stormy;
 }

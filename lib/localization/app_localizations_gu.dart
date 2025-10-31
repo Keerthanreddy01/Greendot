@@ -169,4 +169,55 @@ class AppLocalizationsGu extends AppLocalizations {
   String get rateApp => 'એપ્લિકેશનને રેટ કરો';
   @override
   String get version => 'સંસ્કરણ';
+
+  @override
+  String get quickActions => 'ઝડપી ક્રિયાઓ';
+
+  @override
+  String get weatherToday => 'આજનું હવામાન';
+
+  @override
+  String get plantScanner => 'પ્લાન્ટ સ્કેનર';
+
+  @override
+  String get marketplace => 'બજાર';
+
+  @override
+  String get voiceAssistant => 'વૉઇસ આસિસ્ટન્ટ';
+
+  @override
+  String get home => 'હોમ';
+
+  @override
+  String get schedule => 'શેડ્યુલ';
+
+  @override
+  String get profile => 'પ્રોફાઇલ';
+
+  @override
+  String get more => 'વધુ';
+
+  @override
+  String get todayTasks => 'આજના કાર્યો';
+
+  @override
+  String get tasks => 'કાર્યો';
+
+  @override
+  String get viewAll => 'બધું જુઓ';
+
+  @override
+  String get noTasks => 'કોઈ કાર્યો નથી';
+
+  @override
+  String get sunny => 'સની';
+
+  @override
+  String get cloudy => 'વાદળછાયું';
+
+  @override
+  String get rainy => 'વરસાદી';
+
+  @override
+  String get stormy => 'તોફાની';
 }

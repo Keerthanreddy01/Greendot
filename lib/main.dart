@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'localization/app_localizations_delegate.dart';
 import 'screens/splash_screen.dart';
 import 'screens/language_selection_screen.dart';
 import 'screens/home_screen.dart';
@@ -114,6 +115,7 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         Locale('as', 'IN'),
       ],
       localizationsDelegates: const [
+        AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

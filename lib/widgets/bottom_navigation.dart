@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/voice_assistant_service.dart';
+import '../localization/app_localizations.dart';
 
 class BottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -11,6 +12,8 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    
     return Container(
       height: 80,
       decoration: BoxDecoration(
@@ -33,26 +36,26 @@ class BottomNavigation extends StatelessWidget {
         unselectedFontSize: 10,
         elevation: 0,
         onTap: (index) => _onItemTapped(context, index),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'హోమ్',
+            icon: const Icon(Icons.home),
+            label: localizations.home,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: 'స్కాన్',
+            icon: const Icon(Icons.camera_alt),
+            label: localizations.scanPlant,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.storefront),
-            label: 'మార్కెట్',
+            icon: const Icon(Icons.storefront),
+            label: localizations.marketplace,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'కొనుగోలు',
+            icon: const Icon(Icons.shopping_cart),
+            label: 'Shop', // You can add this to localizations if needed
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'ప్రొఫైల్',
+            icon: const Icon(Icons.person),
+            label: localizations.profile,
           ),
         ],
       ),

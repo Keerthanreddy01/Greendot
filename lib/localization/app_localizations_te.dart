@@ -252,4 +252,55 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get version => 'వెర్షన్';
+
+  @override
+  String get quickActions => 'త్వరిత చర్యలు';
+
+  @override
+  String get weatherToday => 'నేటి వాతావరణం';
+
+  @override
+  String get plantScanner => 'మొక్క స్కానర్';
+
+  @override
+  String get marketplace => 'మార్కెట్‌ప్లేస్';
+
+  @override
+  String get voiceAssistant => 'వాయిస్ అసిస్టెంట్';
+
+  @override
+  String get home => 'హోమ్';
+
+  @override
+  String get schedule => 'షెడ్యూల్';
+
+  @override
+  String get profile => 'ప్రొఫైల్';
+
+  @override
+  String get more => 'మరిన్ని';
+
+  @override
+  String get todayTasks => 'నేటి పనులు';
+
+  @override
+  String get tasks => 'పనులు';
+
+  @override
+  String get viewAll => 'అన్నీ చూడండి';
+
+  @override
+  String get noTasks => 'పనులు లేవు';
+
+  @override
+  String get sunny => 'ఎండ';
+
+  @override
+  String get cloudy => 'మేఘావృతం';
+
+  @override
+  String get rainy => 'వర్షం';
+
+  @override
+  String get stormy => 'తుఫాను';
 }

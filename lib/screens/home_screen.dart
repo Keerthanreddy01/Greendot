@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import '../widgets/weather_card.dart';
 import '../widgets/bottom_navigation.dart';
 import '../services/voice_assistant_service.dart';
+import '../localization/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -242,15 +243,16 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   String _getGreeting() {
+    final localizations = AppLocalizations.of(context);
     final hour = DateTime.now().hour;
     final name = "Farmer"; // You can make this dynamic
 
     if (hour < 12) {
-      return 'Good Morning, $name!';
+      return '${localizations.goodMorning}, $name!';
     } else if (hour < 17) {
-      return 'Good Afternoon, $name!';
+      return '${localizations.goodAfternoon}, $name!';
     } else {
-      return 'Good Evening, $name!';
+      return '${localizations.goodEvening}, $name!';
     }
   }
 
@@ -998,34 +1000,36 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildEnhancedQuickActions() {
+    final localizations = AppLocalizations.of(context);
+    
     final actions = [
       {
         'icon': Icons.camera_alt,
-        'label': 'Scan Plant',
+        'label': localizations.scanPlant,
         'color': const Color(0xFF4CAF50),
         'route': '/camera',
-        'description': 'Check plant health',
+        'description': localizations.scanPlantDisease,
       },
       {
         'icon': Icons.water_drop,
-        'label': 'Water Plants',
+        'label': localizations.irrigation,
         'color': const Color(0xFF00BCD4),
         'route': '/irrigation',
-        'description': 'Irrigation reminder',
+        'description': localizations.wateringReminder,
       },
       {
         'icon': Icons.schedule,
-        'label': 'My Tasks',
+        'label': localizations.tasks,
         'color': const Color(0xFF2196F3),
         'route': '/schedule',
-        'description': 'Daily farm work',
+        'description': localizations.todayTasks,
       },
       {
         'icon': Icons.lightbulb_outline,
-        'label': 'Farm Tips',
+        'label': localizations.quickTips,
         'color': const Color(0xFFFF9800),
         'route': '/tips',
-        'description': 'Expert advice',
+        'description': localizations.proTips,
       },
     ];
 
@@ -1033,7 +1037,7 @@ class _HomeScreenState extends State<HomeScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quick Actions',
+          localizations.quickActions,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: const Color(0xFF2E7D32),

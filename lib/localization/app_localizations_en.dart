@@ -263,4 +263,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get version => 'Version';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get weatherToday => 'Weather Today';
+
+  @override
+  String get plantScanner => 'Plant Scanner';
+
+  @override
+  String get marketplace => 'Marketplace';
+
+  @override
+  String get voiceAssistant => 'Voice Assistant';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get schedule => 'Schedule';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String get todayTasks => "Today's Tasks";
+
+  @override
+  String get tasks => 'Tasks';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get noTasks => 'No Tasks';
+
+  @override
+  String get sunny => 'Sunny';
+
+  @override
+  String get cloudy => 'Cloudy';
+
+  @override
+  String get rainy => 'Rainy';
+
+  @override
+  String get stormy => 'Stormy';
 }

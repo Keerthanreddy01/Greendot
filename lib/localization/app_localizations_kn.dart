@@ -252,4 +252,56 @@ class AppLocalizationsKn extends AppLocalizations {
 
   @override
   String get version => 'ಆವೃತ್ತಿ';
+
+  @override
+  String get quickActions => 'ತ್ವರಿತ ಕ್ರಿಯೆಗಳು';
+
+  @override
+  String get weatherToday => 'ಇಂದಿನ ಹವಾಮಾನ';
+
+  @override
+  String get plantScanner => 'ಸಸ್ಯ ಸ್ಕ್ಯಾನರ್';
+
+  @override
+  String get marketplace => 'ಮಾರುಕಟ್ಟೆ';
+
+  @override
+  String get voiceAssistant => 'ಧ್ವನಿ ಸಹಾಯಕ';
+
+  @override
+  String get home => 'ಮುಖಪುಟ';
+
+  @override
+  String get schedule => 'ವೇಳಾಪಟ್ಟಿ';
+
+  @override
+  String get profile => 'ಪ್ರೊಫೈಲ್';
+
+  @override
+  String get more => 'ಹೆಚ್ಚು';
+
+  @override
+  String get todayTasks => 'ಇಂದಿನ ಕಾರ್ಯಗಳು';
+
+  @override
+  String get tasks => 'ಕಾರ್ಯಗಳು';
+
+  @override
+  String get viewAll => 'ಎಲ್ಲಾ ನೋಡಿ';
+
+  @override
+  String get noTasks => 'ಕಾರ್ಯಗಳಿಲ್ಲ';
+
+  @override
+  String get sunny => 'ಬಿಸಿಲು';
+
+  @override
+  String get cloudy => 'ಮೋಡ';
+
+  @override
+  String get rainy => 'ಮಳೆ';
+
+  @override
+  String get stormy => 'ಚಂಡಮಾರುತ';
 }
+
