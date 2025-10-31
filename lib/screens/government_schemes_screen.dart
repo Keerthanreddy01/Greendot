@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/government_scheme_model.dart';
 import '../services/government_scheme_service.dart';
+import '../widgets/bottom_navigation.dart';
 
 class GovernmentSchemesScreen extends StatefulWidget {
   const GovernmentSchemesScreen({super.key});
@@ -104,6 +105,7 @@ class _GovernmentSchemesScreenState extends State<GovernmentSchemesScreen> {
           ..._schemes.map((scheme) => _buildSchemeCard(scheme)),
         ],
       ),
+      bottomNavigationBar: const BottomNavigation(currentIndex: 3),
     );
   }
 

@@ -43,15 +43,15 @@ class BottomNavigation extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.camera_alt),
-            label: localizations.scanPlant,
+            label: 'Disease',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.storefront),
-            label: localizations.marketplace,
+            label: 'Prices',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.shopping_cart),
-            label: 'Shop', // You can add this to localizations if needed
+            icon: const Icon(Icons.business_center),
+            label: 'Schemes',
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),
@@ -70,19 +70,13 @@ class BottomNavigation extends StatelessWidget {
         }
         break;
       case 1:
-        if (currentIndex != 1) {
-          Navigator.pushNamed(context, '/camera');
-        }
+        Navigator.pushNamed(context, '/ai-disease-detection');
         break;
       case 2:
-        if (currentIndex != 2) {
-          Navigator.pushNamed(context, '/marketplace');
-        }
+        Navigator.pushNamed(context, '/market-prices');
         break;
       case 3:
-        if (currentIndex != 3) {
-          Navigator.pushNamed(context, '/consumer-marketplace');
-        }
+        Navigator.pushNamed(context, '/government-schemes');
         break;
       case 4:
         if (currentIndex != 4) {

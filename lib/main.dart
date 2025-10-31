@@ -12,6 +12,7 @@ import 'screens/pro_tips_screen.dart';
 import 'screens/scan_result_screen.dart';
 import 'screens/farmer_marketplace_screen.dart';
 import 'screens/consumer_marketplace_screen.dart';
+import 'screens/market_prices_screen.dart';
 import 'features/ai_disease_detection/ai_disease_detection_screen.dart';
 import 'features/crop_recommendation/crop_recommendation_screen.dart';
 import 'screens/government_schemes_screen.dart';
@@ -181,6 +182,10 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         // '/irrigation': (context) => const IrrigationScreen(),
         // '/pest-control': (context) => const PestControlScreen(),
         // '/reports': (context) => const ReportsScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/schedule': (context) => const ScheduleScreen(),
+        '/irrigation': (context) => const IrrigationScreen(),
+        '/pest-control': (context) => const PestControlScreen(),
         // New marketplace routes
         '/marketplace': (context) => const FarmerMarketplaceScreen(),
         '/consumer-marketplace': (context) => const ConsumerMarketplaceScreen(),
@@ -489,65 +494,6 @@ class ReportsScreen extends StatelessWidget {
           VoiceAssistantService.startListening(context);
         },
         backgroundColor: const Color(0xFF9C27B0),
-        child: const Icon(Icons.mic, color: Colors.white),
-      ),
-    );
-  }
-}
-
-class MarketPricesScreen extends StatelessWidget {
-  const MarketPricesScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Market Prices'),
-        backgroundColor: Colors.orange,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: () {
-              VoiceAssistantService.startListening(context);
-            },
-            icon: const Icon(Icons.mic, color: Colors.white),
-          ),
-        ],
-      ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.storefront,
-              size: 64,
-              color: Colors.orange,
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Market Prices - Telangana',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2E7D32),
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Detailed market analysis coming soon!',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          VoiceAssistantService.startListening(context);
-        },
-        backgroundColor: Colors.orange,
         child: const Icon(Icons.mic, color: Colors.white),
       ),
     );
