@@ -1,0 +1,24 @@
+area:ai:
+  - 'lib/services/**'
+  - 'lib/features/**'
+
+area:ui:
+  - 'lib/screens/**'
+  - 'lib/widgets/**'
+
+area:infra:
+  - '.github/**'
+  - 'android/**'
+  - 'ios/**'
+  - 'web/**'
+  - 'linux/**'
+  - 'macos/**'
+  - 'windows/**'
+
+area:docs:
+  - '**/*.md'
+  - 'README.md'
+  - 'CONTRIBUTING.md'
+  - 'CODE_OF_CONDUCT.md'
+  - 'SECURITY.md'
+  - 'SUPPORT.md'
