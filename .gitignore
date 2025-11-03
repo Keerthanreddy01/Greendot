@@ -44,6 +44,35 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Build outputs
+build/
+android/app/build/
+android/build/
+ios/build/
+.gradle/
+android/.gradle/
+android/gradle/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.config.dart
+
+# APK files (keep only in releases)
+*.apk
+*.aab
+*.ipa
+
+# Local configuration
+android/local.properties
+ios/Flutter/flutter_export_environment.sh
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.vscode/
+*.code-workspace
+
 if (-not (Test-Path .gitignore)) {
 @"
 .dart_tool/
