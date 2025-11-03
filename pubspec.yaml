@@ -48,7 +48,7 @@ dependencies:
   image: ^4.1.3
 
   # Charts & Data Visualization
-  fl_chart: ^0.65.0
+  fl_chart: ^1.1.1
 
   # Animations
   lottie: ^3.0.0
