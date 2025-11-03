@@ -1,5 +1,32 @@
 # 🌱 GreenDot — AI-Driven Agricultural Intelligence
 
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/CONTRIBUTING.md)
+
+
+[📘 Features](#-core-features) • [🧩 Architecture](#-architecture--system-design) • [🧠 AI Workflow](#-ai--ml-integration-pipeline) • [🚀 Setup](#-installation--setup) • [🧪 Testing](#-testing) • [👥 Policies](#-community--policies) • [🗺️ Roadmap](#-roadmap)
+
+
+```mermaid
+graph TD
+	A[📷 Capture Image] --> B[🧮 Preprocess (resize, normalize)]
+	D --> E[💊 Treatment Recommendation]
+	E --> F[🗣️ Localized Output]
+```
+## 🌐 Localization
+
+
+## 📸 Screenshots
+
+
+Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) and follow the commit style and PR checklist.
+
+
+</div>
+
+
+# 🌱 GreenDot — AI-Driven Agricultural Intelligence
+
 <div align="center">
 
 ![GreenDot Banner](https://img.shields.io/badge/GreenDot-AI_Agriculture_Platform-success?style=for-the-badge&logo=leaf)
@@ -71,6 +98,79 @@ lib/
 │  ├─ language_selection_screen.dart
 │  ├─ home_screen.dart
 │  ├─ camera_scanner_screen.dart
+# 🌱 GreenDot — AI-Driven Agricultural Intelligence
+
+<div align="center">
+
+![GreenDot Banner](https://img.shields.io/badge/GreenDot-AI_Agriculture_Platform-success?style=for-the-badge&logo=leaf)
+
+<strong>Empowering Farmers with AI-Driven Agricultural Intelligence</strong>
+
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white)](https://dart.dev)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)](https://firebase.google.com)
+[![TensorFlow Lite](https://img.shields.io/badge/TensorFlow_Lite-orange?style=flat&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/lite)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-lightgrey.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/CONTRIBUTING.md)
+[![CI](https://github.com/Keerthanreddy01/Greendot/actions/workflows/flutter.yml/badge.svg)](https://github.com/Keerthanreddy01/Greendot/actions/workflows/flutter.yml)
+[![Secret Scan](https://github.com/Keerthanreddy01/Greendot/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/Keerthanreddy01/Greendot/actions/workflows/secret-scan.yml)
+[![Release APK](https://github.com/Keerthanreddy01/Greendot/actions/workflows/release-apk.yml/badge.svg)](https://github.com/Keerthanreddy01/Greendot/actions/workflows/release-apk.yml)
+
+[📘 Features](#-core-features) • [🧩 Architecture](#-architecture--system-design) • [🧠 AI Workflow](#-ai--ml-integration-pipeline) • [🚀 Setup](#-installation--setup) • [🧪 Testing](#-testing) • [👥 Policies](#-community--policies) • [🗺️ Roadmap](#-roadmap)
+
+</div>
+
+---
+
+## 📖 Overview
+
+GreenDot is an AI-powered agricultural platform that helps farmers detect plant diseases, manage farms intelligently, and make data‑driven decisions — all through a multilingual Flutter app.
+
+> 🌾 Vision: Empower every farmer with accessible technology that increases productivity, reduces losses, and fosters sustainable agriculture.
+
+---
+
+## ✨ Core Features
+
+| Feature | Description |
+|--------|-------------|
+| 🤖 AI-Powered Disease Detection | Capture plant images → Identify disease → Get treatment advice instantly. |
+| 📊 Smart Farm Dashboard | Weather, soil, and crop status with intelligent insights. |
+| 💰 Market Intelligence | Live crop price feeds from Telangana’s key markets with trend arrows (↑/↓). |
+| 📋 Task & Schedule Management | Time-based tasks, reminders, and progress celebrations 🎉. |
+| 🔔 Advanced Alerts | Two-tier alerting for weather, pest, and water-related warnings. |
+| 🌍 Multilingual (13 languages) | English, Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Gujarati, Bengali, Punjabi, Odia, Assamese. |
+
+---
+
+## 🏗️ Architecture & System Design
+
+### High-Level Overview
+
+```mermaid
+flowchart TD
+  A[📱 Farmer (App)] --> B[🤖 AI/ML Disease Detection]
+  A --> C[🌦️ Weather & Market APIs]
+  A --> D[📊 Farm Management Module]
+  B --> E[☁️ Firebase / Backend]
+  C --> E
+  D --> E
+  E --> F[📈 Analytics Dashboard]
+  F --> A
+```
+
+💡 Built for scalability, modularity, offline-first resilience.
+
+### Project Structure (key folders)
+
+```text
+lib/
+├─ main.dart
+├─ screens/
+│  ├─ splash_screen.dart
+│  ├─ language_selection_screen.dart
+│  ├─ home_screen.dart
+│  ├─ camera_scanner_screen.dart
 │  ├─ market_prices_screen.dart
 │  ├─ scan_result_screen.dart
 │  └─ voice_assistant_screen.dart
@@ -88,11 +188,11 @@ lib/
 
 ```mermaid
 graph TD
-	A[📷 Capture Image] --> B[🧮 Preprocess (resize, normalize)]
-	B --> C[🧠 TFLite Inference]
-	C --> D[📋 Prediction (Disease + Confidence)]
-	D --> E[💊 Treatment Recommendation]
-	E --> F[�️ Localized Output]
+  A[📷 Capture Image] --> B[🧮 Preprocess (resize, normalize)]
+  B --> C[🧠 TFLite Inference]
+  C --> D[📋 Prediction (Disease + Confidence)]
+  D --> E[💊 Treatment Recommendation]
+  E --> F[🗣️ Localized Output]
 ```
 
 - Model: Custom TensorFlow Lite CNN trained on Indian crop datasets
@@ -172,7 +272,7 @@ Also ensure the TFLite model is placed in `assets/` and referenced in `pubspec.y
 
 ---
 
-## � Localization
+## 🌐 Localization
 
 - App supports 13 languages; ensure locale ARB files or translation maps are kept in `lib/localization/`.
 - Use Flutter localization (`flutter_localizations`) and device locale detection.
@@ -195,7 +295,7 @@ Recommended: add tests for
 
 ---
 
-## � Screenshots
+## 📸 Screenshots
 
 Add screenshots to `assets/screenshots/` and reference them here:
 
@@ -235,7 +335,7 @@ We welcome contributions from developers, agronomists, and AI researchers.
 4. Push: `git push origin feature/your-feature`
 5. Open a Pull Request
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the commit style and PR checklist.
+Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) and follow the commit style and PR checklist.
 
 ---
 
