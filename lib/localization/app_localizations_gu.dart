@@ -2,9 +2,9 @@ import 'app_localizations.dart';
 
 class AppLocalizationsGu extends AppLocalizations {
   @override
-  String get appTitle => 'ગ્રીન ફાર્મ';
+  String get appTitle => 'ગ્રીનડોટ';
   @override
-  String get welcome => 'ગ્રીન ફાર્મમાં આપનું સ્વાગત છે';
+  String get welcome => 'ગ્રીનડોટમાં આપનું સ્વાગત છે';
   @override
   String get getStarted => 'શરૂ કરો';
   @override
@@ -196,6 +196,15 @@ class AppLocalizationsGu extends AppLocalizations {
 
   @override
   String get more => 'વધુ';
+
+  @override
+  String get diseaseDetection => 'રોગ શોધ';
+
+  @override
+  String get marketPrices => 'બજાર ભાવ';
+
+  @override
+  String get governmentSchemes => 'સરકારી યોજનાઓ';
 
   @override
   String get todayTasks => 'આજના કાર્યો';

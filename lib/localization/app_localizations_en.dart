@@ -3,10 +3,10 @@ import 'app_localizations.dart';
 
 class AppLocalizationsEn extends AppLocalizations {
   @override
-  String get appTitle => 'Green Farm';
+  String get appTitle => 'Greendot';
 
   @override
-  String get welcome => 'Welcome to Green Farm';
+  String get welcome => 'Welcome to Greendot';
 
   @override
   String get getStarted => 'Get Started';
@@ -290,6 +290,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get more => 'More';
+
+  @override
+  String get diseaseDetection => 'Disease';
+
+  @override
+  String get marketPrices => 'Prices';
+
+  @override
+  String get governmentSchemes => 'Schemes';
 
   @override
   String get todayTasks => "Today's Tasks";

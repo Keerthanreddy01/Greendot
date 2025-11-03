@@ -2,10 +2,10 @@ import 'app_localizations.dart';
 
 class AppLocalizationsHi extends AppLocalizations {
   @override
-  String get appTitle => 'ग्रीन फार्म';
+  String get appTitle => 'ग्रीनडॉट';
 
   @override
-  String get welcome => 'ग्रीन फार्म में आपका स्वागत है';
+  String get welcome => 'ग्रीनडॉट में आपका स्वागत है';
 
   @override
   String get getStarted => 'शुरू करें';
@@ -289,6 +289,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get more => 'और';
+
+  @override
+  String get diseaseDetection => 'रोग पहचान';
+
+  @override
+  String get marketPrices => 'बाजार मूल्य';
+
+  @override
+  String get governmentSchemes => 'सरकारी योजनाएं';
 
   @override
   String get todayTasks => 'आज के कार्य';

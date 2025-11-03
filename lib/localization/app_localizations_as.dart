@@ -1,8 +1,8 @@
 import 'app_localizations.dart';
 
 class AppLocalizationsAs extends AppLocalizations {
-  @override String get appTitle => 'গ্ৰীণ ফাৰ্ম';
-  @override String get welcome => 'গ্ৰীণ ফাৰ্মলৈ আপোনাক স্বাগতম';
+  @override String get appTitle => 'গ্ৰীণডট';
+  @override String get welcome => 'গ্ৰীণডটলৈ আপোনাক স্বাগতম';
   @override String get getStarted => 'আৰম্ভ কৰক';
   @override String get next => 'পৰৱৰ্তী';
   @override String get back => 'পিছলৈ';
@@ -112,6 +112,15 @@ class AppLocalizationsAs extends AppLocalizations {
 
   @override
   String get more => 'অধিক';
+
+  @override
+  String get diseaseDetection => 'ৰোগ চিনাক্তকৰণ';
+
+  @override
+  String get marketPrices => 'বজাৰ মূল্য';
+
+  @override
+  String get governmentSchemes => 'চৰকাৰী আঁচনি';
 
   @override
   String get todayTasks => 'আজিৰ কাম';

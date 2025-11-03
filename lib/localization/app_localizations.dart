@@ -123,6 +123,9 @@ abstract class AppLocalizations {
   String get schedule;
   String get profile;
   String get more;
+  String get diseaseDetection;
+  String get marketPrices;
+  String get governmentSchemes;
 
   // Tasks
   String get todayTasks;

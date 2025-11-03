@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
 import '../models/disease_detection_model.dart';
+import 'gemini_service.dart';
 
 class DiseaseDetectionService {
   // Singleton pattern
@@ -31,17 +32,118 @@ class DiseaseDetectionService {
     }
 
     try {
-      // Preprocess image
+      // Try Gemini Vision API first for accurate detection
+      final geminiResult = await GeminiService.analyzeImage(imageFile, language: 'Telugu');
+      
+      if (geminiResult['success'] == true) {
+        return _parseGeminiResult(geminiResult);
+      }
+      
+      // Fallback to local model if Gemini fails
+      print('Gemini detection failed, using fallback');
       final processedImage = await _preprocessImage(imageFile);
-      
-      // Run inference (placeholder for actual ML model)
       final result = await _runInference(processedImage);
-      
       return result;
+      
     } catch (e) {
       print('Error detecting disease: $e');
       return _getDummyResult();
     }
+  }
+
+  DiseaseDetectionResult _parseGeminiResult(Map<String, dynamic> geminiResult) {
+    try {
+      // Check if no plant detected
+      if (geminiResult['isNoPlant'] == true) {
+        return DiseaseDetectionResult(
+          diseaseName: 'మొక్క కనిపించడం లేదు',
+          confidence: 0.0,
+          healthScore: 0.0,
+          severity: 'Unknown',
+          symptoms: ['మొక్క చిత్రంలో కనిపించడం లేదు'],
+          treatments: ['మొక్కను సరిగ్గా ఫ్రేమ్‌లో ఉంచండి', 'మంచి వెలుతురులో ఫోటో తీయండి', 'మొక్క ఆకులు స్పష్టంగా కనిపించేలా చూడండి'],
+          preventions: ['కెమెరాను స్థిరంగా పట్టుకోండి', 'దగ్గరగా ఫోటో తీయండి'],
+          imageUrl: '',
+        );
+      }
+      
+      final data = geminiResult['data'] ?? {};
+      final rawText = geminiResult['rawText'] ?? '';
+      
+      // Parse structured data if available
+      if (data.isNotEmpty && data['Plant Type'] != null) {
+        final healthStatus = data['Health Status'] ?? 'Unknown';
+        final isHealthy = healthStatus.toLowerCase().contains('healthy');
+        
+        return DiseaseDetectionResult(
+          diseaseName: isHealthy ? 'ఆరోగ్యవంతమైన మొక్క' : (data['Disease Name'] ?? 'గుర్తించబడలేదు'),
+          confidence: _parseConfidence(data['Confidence']),
+          healthScore: isHealthy ? 95.0 : _parseHealthScore(data['Severity']),
+          severity: data['Severity'] ?? 'Unknown',
+          symptoms: _parseList(data['Symptoms']),
+          treatments: _parseList(data['Treatment']),
+          preventions: _parseList(data['Prevention']),
+          imageUrl: '',
+        );
+      }
+      
+      // Parse from raw text if structured data not available
+      return _parseFromRawText(rawText);
+      
+    } catch (e) {
+      print('Error parsing Gemini result: $e');
+      return _getDummyResult();
+    }
+  }
+
+  double _parseConfidence(dynamic confidence) {
+    if (confidence == null) return 0.85;
+    if (confidence is double) return confidence;
+    if (confidence is String) {
+      final match = RegExp(r'(\d+)').firstMatch(confidence);
+      if (match != null) {
+        return int.parse(match.group(1)!) / 100.0;
+      }
+    }
+    return 0.85;
+  }
+
+  double _parseHealthScore(dynamic severity) {
+    if (severity == null) return 70.0;
+    final sev = severity.toString().toLowerCase();
+    if (sev.contains('low')) return 85.0;
+    if (sev.contains('medium')) return 65.0;
+    if (sev.contains('high')) return 40.0;
+    if (sev.contains('critical')) return 20.0;
+    return 70.0;
+  }
+
+  List<String> _parseList(dynamic data) {
+    if (data == null) return [];
+    if (data is List) return data.cast<String>();
+    if (data is String) {
+      return data.split('\n')
+          .where((s) => s.trim().isNotEmpty)
+          .map((s) => s.trim())
+          .toList();
+    }
+    return [];
+  }
+
+  DiseaseDetectionResult _parseFromRawText(String text) {
+    // Extract information from raw text response
+    final isHealthy = text.toLowerCase().contains('healthy') || text.contains('ఆరోగ్యవంతమైన');
+    
+    return DiseaseDetectionResult(
+      diseaseName: isHealthy ? 'ఆరోగ్యవంతమైన మొక్క' : 'విశ్లేషణ పూర్తయింది',
+      confidence: 0.85,
+      healthScore: isHealthy ? 95.0 : 70.0,
+      severity: isHealthy ? 'None' : 'Medium',
+      symptoms: [text.substring(0, text.length > 200 ? 200 : text.length)],
+      treatments: ['పూర్తి వివరాలకు క్రింది సందేశం చూడండి'],
+      preventions: [],
+      imageUrl: '',
+    );
   }
 
   Future<Uint8List> _preprocessImage(File imageFile) async {

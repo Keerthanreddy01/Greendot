@@ -2,9 +2,9 @@ import 'app_localizations.dart';
 
 class AppLocalizationsMl extends AppLocalizations {
   @override
-  String get appTitle => 'ഗ്രീൻ ഫാം';
+  String get appTitle => 'ഗ്രീൻഡോട്ട്';
   @override
-  String get welcome => 'ഗ്രീൻ ഫാമിലേക്ക് സ്വാഗതം';
+  String get welcome => 'ഗ്രീൻഡോട്ടിലേക്ക് സ്വാഗതം';
   @override
   String get getStarted => 'ആരംഭിക്കുക';
   @override
@@ -196,6 +196,15 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get more => 'കൂടുതൽ';
+
+  @override
+  String get diseaseDetection => 'രോഗ കണ്ടെത്തൽ';
+
+  @override
+  String get marketPrices => 'മാര്‍ക്കറ്റ് വില';
+
+  @override
+  String get governmentSchemes => 'സര്‍ക്കാര്‍ പദ്ധതികള്‍';
 
   @override
   String get todayTasks => 'ഇന്നത്തെ ജോലികൾ';

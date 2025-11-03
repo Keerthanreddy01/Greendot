@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../models/disease_detection_model.dart';
 import '../../services/disease_detection_service.dart';
 import '../../localization/app_localizations.dart';
+import '../../widgets/bottom_navigation.dart';
 
 class AIDiseaseDetectionScreen extends StatefulWidget {
   const AIDiseaseDetectionScreen({Key? key}) : super(key: key);
@@ -86,59 +87,78 @@ class _AIDiseaseDetectionScreenState extends State<AIDiseaseDetectionScreen> wit
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xFF4CAF50), Color(0xFF2E7D32)],
+      body: AnimatedBuilder(
+        animation: _animationController,
+        builder: (context, child) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                // Header
+                Transform.scale(
+                  scale: _scaleAnimation.value,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF4CAF50), Color(0xFF2E7D32)],
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        const Icon(
+                          Icons.biotech,
+                          size: 64,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'AI-Powered Plant Disease Detection',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Upload a photo of your plant to detect diseases',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.biotech,
-                    size: 64,
-                    color: Colors.white.withOpacity(0.9),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'AI-Powered Plant Disease Detection',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Upload a photo of your plant to detect diseases',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white.withOpacity(0.8),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
 
             // Image Selection/Display
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  if (_selectedImage == null)
-                    _buildImagePlaceholder()
-                  else
-                    _buildSelectedImage(),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder: (child, animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: ScaleTransition(
+                          scale: Tween<double>(begin: 0.8, end: 1.0).animate(
+                            CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                          ),
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: _selectedImage == null
+                        ? _buildImagePlaceholder()
+                        : _buildSelectedImage(),
+                  ),
 
                   const SizedBox(height: 24),
 
@@ -218,7 +238,10 @@ class _AIDiseaseDetectionScreenState extends State<AIDiseaseDetectionScreen> wit
             ),
           ],
         ),
+          );
+        },
       ),
+      bottomNavigationBar: const BottomNavigation(currentIndex: 1),
     );
   }
 

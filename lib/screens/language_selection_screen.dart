@@ -480,6 +480,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
     await Future.delayed(const Duration(milliseconds: 300));
     
     if (mounted) {
+      // Navigate to home screen (skip login until Firebase is set up)
+      // TODO: Change to '/login' after Firebase setup
       Navigator.pushReplacementNamed(context, '/home');
     }
   }

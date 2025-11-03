@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/government_scheme_model.dart';
 import '../services/government_scheme_service.dart';
 import '../widgets/bottom_navigation.dart';
+import 'dart:math' as math;
 
 class GovernmentSchemesScreen extends StatefulWidget {
   const GovernmentSchemesScreen({super.key});
@@ -10,14 +11,57 @@ class GovernmentSchemesScreen extends StatefulWidget {
   State<GovernmentSchemesScreen> createState() => _GovernmentSchemesScreenState();
 }
 
-class _GovernmentSchemesScreenState extends State<GovernmentSchemesScreen> {
+class _GovernmentSchemesScreenState extends State<GovernmentSchemesScreen>
+    with TickerProviderStateMixin {
   List<GovernmentScheme> _schemes = [];
   List<SchemeNotification> _notifications = [];
-
+  
+  late AnimationController _listAnimationController;
+  late AnimationController _notificationAnimationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _slideAnimation;
+  
   @override
   void initState() {
     super.initState();
+    _initializeAnimations();
     _loadData();
+  }
+  
+  void _initializeAnimations() {
+    _listAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 1200),
+      vsync: this,
+    );
+    
+    _notificationAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+    
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _listAnimationController,
+        curve: Curves.easeOut,
+      ),
+    );
+    
+    _slideAnimation = Tween<double>(begin: 30.0, end: 0.0).animate(
+      CurvedAnimation(
+        parent: _listAnimationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
+    
+    _listAnimationController.forward();
+    _notificationAnimationController.forward();
+  }
+  
+  @override
+  void dispose() {
+    _listAnimationController.dispose();
+    _notificationAnimationController.dispose();
+    super.dispose();
   }
 
   void _loadData() {
@@ -74,36 +118,86 @@ class _GovernmentSchemesScreenState extends State<GovernmentSchemesScreen> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          if (_notifications.where((n) => !n.isRead).isNotEmpty) ...[
-            Text(
-              'Recent Updates',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[800],
+      body: AnimatedBuilder(
+        animation: _listAnimationController,
+        builder: (context, child) {
+          return ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              if (_notifications.where((n) => !n.isRead).isNotEmpty) ...[
+                Transform.translate(
+                  offset: Offset(0, _slideAnimation.value * 0.5),
+                  child: Opacity(
+                    opacity: _fadeAnimation.value,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Recent Updates',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
+                    ),
+                  ),
+                ),
+                ..._notifications
+                    .where((n) => !n.isRead)
+                    .take(2)
+                    .toList()
+                    .asMap()
+                    .entries
+                    .map((entry) {
+                      final index = entry.key;
+                      final delay = index * 0.15;
+                      final animationValue = math.max(0.0, _notificationAnimationController.value - delay);
+                      
+                      return Transform.translate(
+                        offset: Offset(0, 20 * (1 - animationValue)),
+                        child: Opacity(
+                          opacity: animationValue,
+                          child: _buildNotificationBanner(entry.value),
+                        ),
+                      );
+                    }),
+                const SizedBox(height: 24),
+              ],
+              Transform.translate(
+                offset: Offset(0, _slideAnimation.value * 0.3),
+                child: Opacity(
+                  opacity: _fadeAnimation.value,
+                  child: Text(
+                    'Available Schemes',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            ..._notifications
-                .where((n) => !n.isRead)
-                .take(2)
-                .map((n) => _buildNotificationBanner(n)),
-            const SizedBox(height: 24),
-          ],
-          Text(
-            'Available Schemes',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[800],
-            ),
-          ),
-          const SizedBox(height: 12),
-          ..._schemes.map((scheme) => _buildSchemeCard(scheme)),
-        ],
+              const SizedBox(height: 12),
+              ..._schemes.asMap().entries.map((entry) {
+                final index = entry.key;
+                final delay = index * 0.1;
+                final animationValue = math.min(1.0, _fadeAnimation.value + delay);
+                final slideOffset = _slideAnimation.value * (1 - (delay * 0.5));
+                
+                return Transform.translate(
+                  offset: Offset(0, slideOffset),
+                  child: Opacity(
+                    opacity: animationValue,
+                    child: _buildSchemeCard(entry.value, index),
+                  ),
+                );
+              }),
+            ],
+          );
+        },
       ),
       bottomNavigationBar: const BottomNavigation(currentIndex: 3),
     );
@@ -177,14 +271,21 @@ class _GovernmentSchemesScreenState extends State<GovernmentSchemesScreen> {
     );
   }
 
-  Widget _buildSchemeCard(GovernmentScheme scheme) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 16),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: InkWell(
-        onTap: () => _showSchemeDetails(scheme),
-        borderRadius: BorderRadius.circular(16),
+  Widget _buildSchemeCard(GovernmentScheme scheme, int index) {
+    return TweenAnimationBuilder<double>(
+      duration: Duration(milliseconds: 400 + (index * 50)),
+      tween: Tween<double>(begin: 0.0, end: 1.0),
+      curve: Curves.easeOutCubic,
+      builder: (context, value, child) {
+        return Transform.scale(
+          scale: 0.95 + (0.05 * value),
+          child: Card(
+            elevation: 2 + (2 * value),
+            margin: const EdgeInsets.only(bottom: 16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: InkWell(
+              onTap: () => _showSchemeDetails(scheme),
+              borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -287,7 +388,10 @@ class _GovernmentSchemesScreenState extends State<GovernmentSchemesScreen> {
             ],
           ),
         ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 

@@ -1,8 +1,8 @@
 import 'app_localizations.dart';
 
 class AppLocalizationsPa extends AppLocalizations {
-  @override String get appTitle => 'ਗ੍ਰੀਨ ਫਾਰਮ';
-  @override String get welcome => 'ਗ੍ਰੀਨ ਫਾਰਮ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ';
+  @override String get appTitle => 'ਗ੍ਰੀਨਡਾਟ';
+  @override String get welcome => 'ਗ੍ਰੀਨਡਾਟ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ';
   @override String get getStarted => 'ਸ਼ੁਰੂ ਕਰੋ';
   @override String get next => 'ਅਗਲਾ';
   @override String get back => 'ਪਿੱਛੇ';
@@ -112,6 +112,15 @@ class AppLocalizationsPa extends AppLocalizations {
 
   @override
   String get more => 'ਹੋਰ';
+
+  @override
+  String get diseaseDetection => 'ਰੋਗ ਪਛਾਣ';
+
+  @override
+  String get marketPrices => 'ਬਾਜ਼ਾਰ ਕੀਮਤਾਂ';
+
+  @override
+  String get governmentSchemes => 'ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ';
 
   @override
   String get todayTasks => 'ਅੱਜ ਦੇ ਕੰਮ';

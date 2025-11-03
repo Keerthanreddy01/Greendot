@@ -1,11 +1,11 @@
 {
-    "name": "green_dot",
-    "short_name": "green_dot",
+    "name": "Greendot",
+    "short_name": "Greendot",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Greendot - AI-powered farming assistant for smart agriculture.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

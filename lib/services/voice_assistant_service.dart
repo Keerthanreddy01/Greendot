@@ -4,6 +4,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:convert';
 import 'dart:math' as math;
+import 'gemini_service.dart';
 
 class VoiceAssistantService {
   static final SpeechToText _speechToText = SpeechToText();
@@ -20,7 +21,30 @@ class VoiceAssistantService {
   static final Map<String, String> _teluguResponses = {
     'greeting': 'నమస్కారం! నేను కిసాన్, మీ వ్యవసాయ సహాయకుడిని. మీకు ఎలా సహాయం చేయాలి?',
     'weather': 'వాతావరణం గురించి తెలుసుకోవాలంటే, మీ ప్రాంతంలో ఈరోజు ఎండగా ఉంది. ఉష్ణోగ్రత 24 డిగ్రీలు. వ్యవసాయానికి అనుకూలమైన వాతావరణం.',
-    'market_prices': 'మార్కెట్ ధరలు తెలుసుకోవాలంటే, ఈరోజు టమాటో ధర 2850 రూపాయలు క్వింటల్‌కు, వరి 2820 రూపాయలు, పత్తి 6200 రూపాయలు.',
+    'market_prices': '''మార్కెట్ ధరలు (క్వింటల్‌కు):
+
+ముఖ్య పంటలు:
+- పత్తి: ₹5000-6300 (పెరుగుతోంది 2.8-4.1%)
+- బియ్యం: ₹2800-2920
+- గోధుమ: ₹2180-2400 (పెరుగుతోంది 3.5-4.2%)
+- మొక్కజొన్న: ₹1900-1980
+
+కూరగాయలు:
+- టమాట: ₹1150-1450 (పెరుగుతోంది 7.2-8.5%)
+- ఉల్లి: ₹2150-2500
+- బంగాళాదుంప: ₹1750-2100
+
+కాయధాన్యాలు:
+- సోయాబీన్: ₹4180-4350 (పెరుగుతోంది 2.8-3.2%)
+- వేరుశనగ: ₹5750-6100
+- కంది: ₹6750-7200 (పెరుగుతోంది 3.8-4.5%)
+
+మసాలాలు:
+- మిరప: ₹11800-12400 (పెరుగుతోంది 4.2-5.8%)
+- పసుపు: ₹8400-8650 (పెరుగుతోంది 2.1-2.5%)
+- జీలకర్ర: ₹28500-29500 (పెరుగుతోంది 6.5%)
+
+సమీపంలోని మార్కెట్లు: వరంగల్ (8.3 km), సంగారెడ్డి (15.8 km), కరీంనగర్ (28.7 km)''',
     'crop_health': 'పంట ఆరోగ్యం తనిఖీ చేయాలంటే, మీ పంట యొక్క ఫోటో తీసి అప్లోడ్ చేయండి. నేను వివరణాత్మక నివేదిక ఇస్తాను.',
     'tasks': 'ఈరోజు మీకు 3 పనులు ఉన్నాయి: టమాటో మొక్కలకు నీరు పెట్టడం, కీటకాలను తనిఖీ చేయడం, కూరగాయల కోత.',
     'irrigation': 'నీటిపారుదల గురించి తెలుసుకోవాలంటే, మీ పంటలకు ఉదయం 7 గంటలకు నీరు పెట్టడం మంచిది. నేల తేమ స్థాయి 65 శాతం ఉంది.',
@@ -47,8 +71,17 @@ class VoiceAssistantService {
   static Future<void> initialize() async {
     try {
       _speechEnabled = await _speechToText.initialize(
-        onError: (error) => print('Speech recognition error: $error'),
-        onStatus: (status) => print('Speech recognition status: $status'),
+        onError: (error) {
+          print('Speech recognition error: $error');
+          _isListening = false;
+        },
+        onStatus: (status) {
+          print('Speech recognition status: $status');
+          if (status == 'done' || status == 'notListening') {
+            _isListening = false;
+          }
+        },
+        debugLogging: true,
       );
 
       await flutterTts.setLanguage("te-IN");
@@ -66,33 +99,82 @@ class VoiceAssistantService {
   static Future<void> startListening(BuildContext context) async {
     if (!_speechEnabled) {
       await initialize();
+      if (!_speechEnabled) {
+        _showErrorDialog(context, 'వాయిస్ గుర్తింపు అందుబాటులో లేదు. మైక్రోఫోన్ అనుమతిని తనిఖీ చేయండి.');
+        return;
+      }
     }
 
-    if (_speechEnabled && !_isListening) {
-      _isListening = true;
-      
-      // Show listening dialog
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return _buildListeningDialog(context);
-        },
-      );
+    if (_isListening) {
+      print('Already listening, ignoring request');
+      return;
+    }
 
+    _isListening = true;
+    
+    // Show listening dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return _buildListeningDialog(dialogContext);
+      },
+    );
+
+    try {
       await _speechToText.listen(
         onResult: (result) {
-          if (result.finalResult) {
-            Navigator.of(context).pop();
+          print('Speech result: ${result.recognizedWords}, final: ${result.finalResult}');
+          if (result.finalResult && result.recognizedWords.isNotEmpty) {
+            Navigator.of(context, rootNavigator: true).pop(); // Close dialog
             _processVoiceCommand(context, result.recognizedWords);
             _isListening = false;
           }
         },
-        listenFor: const Duration(seconds: 30),
-        pauseFor: const Duration(seconds: 5),
-        localeId: 'te-IN',
+        listenFor: const Duration(seconds: 60),
+        pauseFor: const Duration(seconds: 10),
+        partialResults: true,
+        localeId: 'en-IN', // Use English-India for better recognition
+        cancelOnError: false,
+        listenMode: ListenMode.confirmation,
       );
+
+      // Auto-close dialog if no speech detected after 60 seconds
+      Future.delayed(const Duration(seconds: 61), () {
+        if (_isListening) {
+          _stopListening();
+          if (Navigator.of(context).canPop()) {
+            Navigator.of(context).pop();
+          }
+          _showErrorDialog(context, 'No speech detected. Please try again and speak clearly.');
+        }
+      });
+    } catch (e) {
+      print('Error starting speech recognition: $e');
+      _isListening = false;
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+      _showErrorDialog(context, 'వాయిస్ గుర్తింపు ప్రారంభించడంలో లోపం. మళ్లీ ప్రయత్నించండి.');
     }
+  }
+
+  static void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('లోపం'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('సరే'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   static Widget _buildListeningDialog(BuildContext context) {
@@ -125,7 +207,7 @@ class VoiceAssistantService {
             ),
             const SizedBox(height: 20),
             const Text(
-              'కిసాన్ వింటున్నాడు...',
+              'Listening...',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -135,7 +217,7 @@ class VoiceAssistantService {
             ),
             const SizedBox(height: 12),
             Text(
-              'మీ ప్రశ్నను అడగండి',
+              'Speak now - Ask about weather, prices, farming tips',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -151,19 +233,19 @@ class VoiceAssistantService {
                     _stopListening();
                     Navigator.of(context).pop();
                   },
-                  child: const Text('రద్దు చేయండి'),
+                  child: const Text('Cancel'),
                 ),
                 ElevatedButton(
                   onPressed: () {
                     _stopListening();
                     Navigator.of(context).pop();
-                    _processVoiceCommand(context, "వాతావరణం ఎలా ఉంది?");
+                    _processVoiceCommand(context, "How is the weather today?");
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF4CAF50),
                   ),
                   child: const Text(
-                    'ఉదాహరణ',
+                    'Try Example',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -183,7 +265,20 @@ class VoiceAssistantService {
   }
 
   static Future<void> _processVoiceCommand(BuildContext context, String command) async {
-    String response = _analyzeCommand(command);
+    // Try Gemini API first for better responses
+    String response;
+    try {
+      response = await GeminiService.processVoiceCommand(command, language: 'Telugu');
+      
+      // Fallback to local responses if Gemini fails or API not configured
+      if (response.contains('configure') || response.contains('కాన్ఫిగర్')) {
+        response = _analyzeCommand(command);
+      }
+    } catch (e) {
+      print('Gemini error, using fallback: $e');
+      response = _analyzeCommand(command);
+    }
+    
     await _speakResponse(response);
     _showResponseDialog(context, command, response);
   }
@@ -396,7 +491,13 @@ class VoiceAssistantService {
   }
 
   static Future<void> speakMarketPrices(BuildContext context) async {
-    const response = 'ఈరోజు మార్కెట్ ధరలు: టమాటో 2850 రూపాయలు, వరి 2820 రూపాయలు, పత్తి 6200 రూపాయలు క్వింటల్‌కు.';
+    const response = '''ఈరోజు మార్కెట్ ధరలు:
+పత్తి 5000 నుండి 6300 రూపాయలు, పెరుగుతోంది.
+బియ్యం 2800 నుండి 2920 రూపాయలు.
+టమాట 1150 నుండి 1450 రూపాయలు, బాగా పెరుగుతోంది.
+మిరప 11800 నుండి 12400 రూపాయలు.
+పసుపు 8400 నుండి 8650 రూపాయలు.
+క్వింటల్‌కు ధరలు. మరిన్ని వివరాలకు మార్కెట్ విభాగం చూడండి.''';
     await _speakResponse(response);
   }
 
