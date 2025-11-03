@@ -45,7 +45,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   Future<void> _bootstrapAndNavigate() async {
-    // Show splash for 3 seconds (reduced from 5)
+    // Show splash for 3commit and push to giithyub
+    // seconds (reduced from 5)
     await Future.delayed(const Duration(milliseconds: 3000));
 
     if (!_navigated && mounted) {

@@ -220,6 +220,15 @@ Refer to **CONTRIBUTING.md** for detailed contribution guidelines.
 
 ---
 
+## 🧑‍🤝‍🧑 Community & Policies
+
+- Read our [Code of Conduct](CODE_OF_CONDUCT.md)
+- See how to [Contribute](CONTRIBUTING.md)
+- Report sensitive issues via [Security Policy](SECURITY.md)
+- Get help in [Support](SUPPORT.md)
+
+---
+
 ## 📄 License
 
 Licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
