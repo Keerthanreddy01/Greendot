@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class GeminiService {
-  // Gemini API key configured
-  static const String _apiKey = 'AIzaSyCEnUh9dWLjQifu53qeU8t7GT5LIY0yQvQ';
+  // Gemini API key configured via --dart-define (do not hardcode)
+  static const String _apiKey = String.fromEnvironment(
+    'GEMINI_API_KEY',
+    defaultValue: 'YOUR_GEMINI_API_KEY_HERE',
+  );
   static const String _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
   
   // For text-only queries (Voice Assistant)

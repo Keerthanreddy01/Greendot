@@ -79,6 +79,10 @@ lib/**/secrets.dart
 lib/config/gemini_*.dart
 lib/services/gemini_*.dart
 
+# Firebase platform config (prefer local only)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
 # IDE
 .vscode/
 *.code-workspace
