@@ -49,13 +49,13 @@ GreenDot is an AI-powered agricultural platform that helps farmers detect plant 
 
 ```mermaid
 flowchart TD
-  A[📱 Farmer (App)] --> B[🤖 AI/ML Disease Detection]
-  A --> C[🌦️ Weather & Market APIs]
-  A --> D[📊 Farm Management Module]
-  B --> E[☁️ Firebase / Backend]
+  A["📱 Farmer (App)"] --> B["🤖 AI/ML Disease Detection"]
+  A --> C["🌦️ Weather & Market APIs"]
+  A --> D["📊 Farm Management Module"]
+  B --> E["☁️ Firebase / Backend"]
   C --> E
   D --> E
-  E --> F[📈 Analytics Dashboard]
+  E --> F["📈 Analytics Dashboard"]
   F --> A
 ```
 
@@ -88,11 +88,11 @@ lib/
 
 ```mermaid
 graph TD
-  A[📷 Capture Image] --> B[🧮 Preprocess (resize, normalize)]
-  B --> C[🧠 TFLite Inference]
-  C --> D[📋 Prediction (Disease + Confidence)]
-  D --> E[💊 Treatment Recommendation]
-  E --> F[🗣️ Localized Output]
+  A["📷 Capture Image"] --> B["🧮 Preprocess (resize, normalize)"]
+  B --> C["🧠 TFLite Inference"]
+  C --> D["📋 Prediction (Disease + Confidence)"]
+  D --> E["💊 Treatment Recommendation"]
+  E --> F["🗣️ Localized Output"]
 ```
 
 - Model: Custom TensorFlow Lite CNN trained on Indian crop datasets
