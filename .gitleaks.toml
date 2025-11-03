@@ -4,7 +4,7 @@ title = "GreenDot Gitleaks Config"
 description = "Allow known safe patterns and files"
 paths = [
   "lib/firebase_options.dart",
-  "TESTING_CHECKLIST.md",
+  "docs/TESTING_CHECKLIST.md",
 ]
 regexes = [
   # Firebase Web API keys are safe to commit; restrict usage in Firebase console

@@ -218,10 +218,10 @@ Add screenshots to `assets/screenshots/` and reference them here:
 
 ## 🧑‍🤝‍🧑 Community & Policies
 
-- Read our [Code of Conduct](CODE_OF_CONDUCT.md)
-- See how to [Contribute](CONTRIBUTING.md)
-- Report sensitive issues via [Security Policy](SECURITY.md)
-- Get help in [Support](SUPPORT.md)
+- Read our [Code of Conduct](.github/CODE_OF_CONDUCT.md)
+- See how to [Contribute](.github/CONTRIBUTING.md)
+- Report sensitive issues via [Security Policy](.github/SECURITY.md)
+- Get help in [Support](.github/SUPPORT.md)
 
 ---
 
