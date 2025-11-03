@@ -4,10 +4,9 @@ on:
   branch_protection_rule:
   schedule:
     - cron: '0 12 * * 1'
-  push:
-    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
