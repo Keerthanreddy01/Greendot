@@ -4,19 +4,16 @@
 
 ![GreenDot Banner](https://img.shields.io/badge/GreenDot-AI_Agriculture_Platform-success?style=for-the-badge&logo=leaf)
 
-**Empowering Farmers with AI-Driven Agricultural Intelligence**
+<strong>Empowering Farmers with AI-Driven Agricultural Intelligence</strong>
 
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white)](https://dart.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)](https://firebase.google.com)
 [![TensorFlow Lite](https://img.shields.io/badge/TensorFlow_Lite-orange?style=flat&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/lite)
-[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-lightgrey.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Build Status](https://img.shields.io/badge/build-passing-success.svg?style=flat)]()
-[![Downloads](https://img.shields.io/badge/downloads-1K%2B-blue?style=flat)]()
-[![Issues](https://img.shields.io/badge/issues-open-orange?style=flat)]()
 
-[📘 Features](#-core-features) • [⚙️ Architecture](#-architecture--system-design) • [🧠 AI Workflow](#-ai--ml-integration-pipeline) • [🚀 Setup](#-installation--setup) • [💡 Roadmap](#-roadmap)
+[📘 Features](#-core-features) • [🧩 Architecture](#-architecture--system-design) • [🧠 AI Workflow](#-ai--ml-integration-pipeline) • [🚀 Setup](#-installation--setup) • [🧪 Testing](#-testing) • [� Policies](#-community--policies) • [🗺️ Roadmap](#-roadmap)
 
 </div>
 
@@ -24,199 +21,195 @@
 
 ## 📖 Overview
 
-**GreenDot** is an **AI-powered agricultural platform** that helps farmers detect plant diseases, manage farms intelligently, and make data-driven decisions — all through a multilingual mobile app built with Flutter.
+GreenDot is an AI-powered agricultural platform that helps farmers detect plant diseases, manage farms intelligently, and make data‑driven decisions — all through a multilingual Flutter app.
 
-> 🌾 *Our vision: To empower every farmer with accessible technology that increases productivity, reduces losses, and fosters sustainable agriculture.*
-
----
-
-## 🎯 Mission
-
-To **bridge the gap between agriculture and technology** by offering farmers accessible tools for real-time crop monitoring, weather intelligence, and smart decision support — in their own language.
+> 🌾 Vision: Empower every farmer with accessible technology that increases productivity, reduces losses, and fosters sustainable agriculture.
 
 ---
 
 ## ✨ Core Features
 
 | Feature | Description |
-|----------|--------------|
-| 🤖 **AI-Powered Disease Detection** | Capture plant images → Identify disease → Get treatment advice instantly. |
-| 📊 **Smart Farm Dashboard** | Track weather, soil, and crop status with intelligent insights. |
-| 💰 **Market Intelligence** | Live crop price feeds from Telangana’s 5 key markets with trend arrows (↑/↓). |
-| 📋 **Task & Schedule Management** | Time-based tasks, smart reminders, and progress celebrations 🎉. |
-| 🔔 **Advanced Alerts System** | Two-tier alerting for weather, pest, and water-related warnings. |
-| 🌍 **Multilingual Support (13 Languages)** | English, Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Gujarati, Bengali, Punjabi, Odia, Assamese. |
+|--------|-------------|
+| 🤖 AI-Powered Disease Detection | Capture plant images → Identify disease → Get treatment advice instantly. |
+| 📊 Smart Farm Dashboard | Weather, soil, and crop status with intelligent insights. |
+| 💰 Market Intelligence | Live crop price feeds from Telangana’s key markets with trend arrows (↑/↓). |
+| 📋 Task & Schedule Management | Time-based tasks, reminders, and progress celebrations 🎉. |
+| 🔔 Advanced Alerts | Two-tier alerting for weather, pest, and water-related warnings. |
+| 🌍 Multilingual (13 languages) | English, Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Gujarati, Bengali, Punjabi, Odia, Assamese. |
 
 ---
 
 ## 🏗️ Architecture & System Design
 
-### 🧩 High-Level Overview
+### High-Level Overview
 
+```mermaid
 flowchart TD
-A[📱 Farmer (App)] --> B[🤖 AI/ML Disease Detection Service]
-A --> C[🌦️ Weather & Market APIs]
-A --> D[📊 Farm Management Module]
-B --> E[☁️ Firebase / Backend]
-C --> E
-D --> E
-E --> F[📈 Data Dashboard + Analytics]
-F --> A
+	A[📱 Farmer (App)] --> B[🤖 AI/ML Disease Detection]
+	A --> C[🌦️ Weather & Market APIs]
+	A --> D[📊 Farm Management Module]
+	B --> E[☁️ Firebase / Backend]
+	C --> E
+	D --> E
+	E --> F[📈 Analytics Dashboard]
+	F --> A
+```
 
-text
+💡 Built for scalability, modularity, offline-first resilience.
 
-💡 **Architecture built for scalability, modularity, and offline resilience.**
+### Project Structure (key folders)
 
----
-
-### 🧱 Project Structure
-
+```text
 lib/
-├── main.dart
-├── screens/
-│ ├── splash_screen.dart
-│ ├── language_selection_screen.dart
-│ ├── home_screen.dart
-│ ├── camera_scanner_screen.dart
-│ ├── market_screen.dart
-│ └── scan_result_screen.dart
-├── providers/
-│ ├── language_provider.dart
-│ ├── task_provider.dart
-│ └── weather_provider.dart
-├── services/
-│ ├── ai_service.dart # TensorFlow Lite inference
-│ ├── notification_service.dart
-│ ├── api_service.dart # Market + Weather
-│ └── schedule_store.dart
-├── widgets/
-│ ├── bottom_navigation.dart
-│ ├── weather_card.dart
-│ ├── price_chart.dart
-│ └── treatment_item.dart
-└── l10n/
-└── app_*.arb
-
-text
+├─ main.dart
+├─ screens/
+│  ├─ splash_screen.dart
+│  ├─ language_selection_screen.dart
+│  ├─ home_screen.dart
+│  ├─ camera_scanner_screen.dart
+│  ├─ market_prices_screen.dart
+│  ├─ scan_result_screen.dart
+│  └─ voice_assistant_screen.dart
+├─ providers/
+├─ services/
+├─ models/
+├─ widgets/
+├─ features/
+└─ localization/
+```
 
 ---
 
 ## 🧠 AI & ML Integration Pipeline
 
+```mermaid
 graph TD
-A[📷 Capture Image] --> B[🧮 Preprocessing (resize, normalize)]
-B --> C[🧠 TensorFlow Lite Inference]
-C --> D[📋 Prediction (Disease Name + Confidence)]
-D --> E[💊 Treatment Recommendation Engine]
-E --> F[📱 Output in User’s Language]
+	A[📷 Capture Image] --> B[🧮 Preprocess (resize, normalize)]
+	B --> C[🧠 TFLite Inference]
+	C --> D[📋 Prediction (Disease + Confidence)]
+	D --> E[💊 Treatment Recommendation]
+	E --> F[�️ Localized Output]
+```
 
-text
-
-- **Model:** Custom TensorFlow Lite CNN trained on Indian crop datasets  
-- **Accuracy:** ~93% on major leaf diseases  
-- **Offline Mode:** Fully local inference with TFLite  
-- **Future:** Firebase ML-assisted cloud model updates  
+- Model: Custom TensorFlow Lite CNN trained on Indian crop datasets
+- Offline Mode: Fully local inference with TFLite
+- Future: Optional cloud model updates via Firebase ML
 
 ---
 
 ## 🧭 Tech Stack
 
 | Layer | Technology |
-|--------|-------------|
-| Frontend | Flutter (Dart 3.x) |
-| State Management | Provider, ChangeNotifier |
-| AI Engine | TensorFlow Lite |
-| Backend / DB | Firebase + REST APIs |
-| Notifications | Flutter Local Notifications |
-| Maps & Location | Geolocator |
+|------|------------|
+| Frontend | Flutter (Dart ≥ 3.0.0) |
+| State Management | Provider, ChangeNotifier, Flutter BLoC |
+| AI Engine | TensorFlow Lite via `tflite_flutter` |
+| Backend / DB | Firebase (Core, Auth, Firestore, Storage) + REST APIs |
+| Notifications | Local notifications |
 | Storage | SharedPreferences, Cloud Firestore |
-| Animations | Lottie, Flutter Spinkit |
+| Media & Sensors | Camera, Image Picker, Permission Handler |
+| Voice | speech_to_text, flutter_tts |
+| Charts | fl_chart |
 
 ---
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
-- Flutter SDK ≥ 3.0  
-- Dart ≥ 2.17  
-- Android Studio or VS Code  
-- Firebase Project (optional for full feature access)
+- Flutter SDK ≥ 3.0
+- Dart SDK ≥ 3.0 (repo targets `sdk: ">=3.0.0 <4.0.0"`)
+- Android Studio or VS Code
+- Optional: Firebase project for Auth/Storage/Firestore features
 
-### Steps
+### 1) Clone
 
-1️⃣ Clone the repo
-git clone https://github.com/yourusername/greendot.git
+```powershell
+git clone https://github.com/<your-username>/greendot.git
 cd greendot
+```
 
-2️⃣ Install dependencies
+### 2) Install dependencies
+
+```powershell
 flutter pub get
+```
 
-3️⃣ Run locally
+### 3) Configure Firebase (optional but recommended)
+
+- Android: place `google-services.json` in `android/app/` (already referenced)
+- iOS: place `GoogleService-Info.plist` in `ios/Runner/`
+- FlutterFire recommended: generate `lib/firebase_options.dart` (already present)
+
+### 4) Run the app
+
+```powershell
 flutter run
+```
 
-4️⃣ (Optional) Build release APK
+### 5) Build release APK (optional)
+
+```powershell
 flutter build apk --release
-
-text
+```
 
 ---
 
-### 🔧 Environment Configuration
+## 🔧 Configuration
 
-Create a `.env` file at the project root:
+If you manage custom settings, create a `.env` or use constants and set values like:
 
+```text
 API_BASE_URL=https://api.greendot.io
-FIREBASE_PROJECT_ID=greendot-agri
+FIREBASE_PROJECT_ID=<your-firebase-project-id>
 TFLITE_MODEL_PATH=assets/model.tflite
+```
 
-text
-
----
-
-## 🎨 Design System
-
-| Principle | Implementation |
-|------------|----------------|
-| Farmer-First UX | Large touch zones, minimal text complexity |
-| Performance | 60fps animations, optimized image caching |
-| Accessibility | Multilingual UI, high-contrast design |
-| Visual Identity | Nature-inspired palette, gradient green tones |
-| Typography | Poppins / Noto Sans with strong hierarchy |
+Also ensure the TFLite model is placed in `assets/` and referenced in `pubspec.yaml`.
 
 ---
 
-## 📊 Key Statistics
+## � Localization
 
-- 🧩 2,600+ lines of optimized Flutter code  
-- 🌐 13 languages supported  
-- 📈 5 live agricultural markets integrated  
-- ⚡ 60fps fluid performance  
-- 📱 Fully offline-friendly architecture  
+- App supports 13 languages; ensure locale ARB files or translation maps are kept in `lib/localization/`.
+- Use Flutter localization (`flutter_localizations`) and device locale detection.
+- Add new languages by providing translations and updating supported locales.
+
+---
+
+## 🧪 Testing
+
+Basic widget tests live in `test/`. Run:
+
+```powershell
+flutter test
+```
+
+Recommended: add tests for
+- Disease detection flow (mocking TFLite)
+- Localization fallback
+- Market prices API parser
+
+---
+
+## � Screenshots
+
+Add screenshots to `assets/screenshots/` and reference them here:
+
+| Splash | Home | Scan |
+|---|---|---|
+| ![splash](assets/screenshots/splash.png) | ![home](assets/screenshots/home.png) | ![scan](assets/screenshots/scan.png) |
 
 ---
 
 ## 🛣️ Roadmap
 
 | Stage | Features | Status |
-|--------|-----------|--------|
+|------|----------|--------|
 | ✅ Phase 1 | UI/UX, Language Support, Market Module | Completed |
 | 🔄 Phase 2 | Camera + TFLite Model, Notifications | In Progress |
 | 🎯 Phase 3 | Cloud Sync, Authentication, Expert Consults | Planned |
 | 🚀 Phase 4 | Community Hub, Crop Yield Prediction | Upcoming |
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from developers, agronomists, and AI researchers!
-
-1. **Fork** this repository  
-2. **Create** your branch: `git checkout -b feature/your-feature`  
-3. **Commit** changes: `git commit -m 'Add new feature'`  
-4. **Push** to your branch: `git push origin feature/your-feature`  
-5. **Submit** a Pull Request 🚀  
-
-Refer to **CONTRIBUTING.md** for detailed contribution guidelines.
 
 ---
 
@@ -229,28 +222,44 @@ Refer to **CONTRIBUTING.md** for detailed contribution guidelines.
 
 ---
 
-## 📄 License
+## 🤝 Contributing
 
-Licensed under the **MIT License** — see [LICENSE](LICENSE) for details.
+We welcome contributions from developers, agronomists, and AI researchers.
+
+1. Fork this repository
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Commit: `git commit -m "feat: add your feature"`
+4. Push: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the commit style and PR checklist.
 
 ---
 
-## 👥 Team
+## 🔐 License
+
+This project is currently released under an “All Rights Reserved” license. See [LICENSE](LICENSE) for terms.
+
+Note: If you intend to switch to an open-source license (e.g., MIT), update `LICENSE` and the license badge in this README accordingly.
+
+---
+
+## 👥 Team & Contact
 
 | Role | Name |
 |------|------|
 | 👨‍💻 Project Lead | Keerthan Reddy |
 
-**📬 Contact:**  
-📧 Email: [keerthanreddy1706@gmail.com](mailto:keerthanreddy1706@gmail.com)  
-🐛 GitHub Issues: Report a Bug  
-💬 Discussions: Join the Community Forum  
+Contact
+- Email: [keerthanreddy1706@gmail.com](mailto:keerthanreddy1706@gmail.com)
+- Issues: open a ticket via GitHub Issues
+- Discussions: start a thread in the Discussions tab
 
 ---
 
 <div align="center">
 
-**Made with ❤️ & AI for Farmers**  
-⭐ *Star this repo if you believe in sustainable agriculture!*
+Made with ❤️ & AI for Farmers  
+⭐ If this project resonates with you, please consider leaving a star.
 
 </div>

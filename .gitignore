@@ -74,6 +74,7 @@ ios/Flutter/flutter_export_environment.sh
 .env.*
 env.local
 *.env.local
+!.env.example
 lib/secrets.dart
 lib/**/secrets.dart
 lib/config/gemini_*.dart
@@ -87,21 +88,16 @@ ios/Runner/GoogleService-Info.plist
 .vscode/
 *.code-workspace
 
-if (-not (Test-Path .gitignore)) {
-@"
-.dart_tool/
-build/
-**/ephemeral/
-.idea/
-.vscode/
-*.iml
-android/.gradle/
-android/app/build/
-android/build/
-ios/Pods/
-**/DerivedData/
-"@ | Out-File -Encoding UTF8 .gitignore
-}
-git add .gitignore
-git commit -m "Add .gitignore for Flutter"
-git push
+# Keystore and signing files
+**/*.keystore
+**/*.jks
+android/key.properties
+
+# macOS and Windows cruft
+Thumbs.db
+.DS_Store
+
+# Allow committing Firebase configs (safe by design)
+# If you prefer to keep them local, uncomment the following lines:
+# android/app/google-services.json
+# ios/Runner/GoogleService-Info.plist
