@@ -12,6 +12,9 @@
 [![TensorFlow Lite](https://img.shields.io/badge/TensorFlow_Lite-orange?style=flat&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/lite)
 [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-lightgrey.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![CI](https://github.com/Keerthanreddy01/Greendot/actions/workflows/flutter.yml/badge.svg)](https://github.com/Keerthanreddy01/Greendot/actions/workflows/flutter.yml)
+[![Secret Scan](https://github.com/Keerthanreddy01/Greendot/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/Keerthanreddy01/Greendot/actions/workflows/secret-scan.yml)
+[![Release APK](https://github.com/Keerthanreddy01/Greendot/actions/workflows/release-apk.yml/badge.svg)](https://github.com/Keerthanreddy01/Greendot/actions/workflows/release-apk.yml)
 
 [📘 Features](#-core-features) • [🧩 Architecture](#-architecture--system-design) • [🧠 AI Workflow](#-ai--ml-integration-pipeline) • [🚀 Setup](#-installation--setup) • [🧪 Testing](#-testing) • [� Policies](#-community--policies) • [🗺️ Roadmap](#-roadmap)
 
