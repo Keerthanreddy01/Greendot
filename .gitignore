@@ -69,6 +69,16 @@ ios/Flutter/flutter_export_environment.sh
 .flutter-plugins
 .flutter-plugins-dependencies
 
+# Environment & secrets (do not commit secrets)
+.env
+.env.*
+env.local
+*.env.local
+lib/secrets.dart
+lib/**/secrets.dart
+lib/config/gemini_*.dart
+lib/services/gemini_*.dart
+
 # IDE
 .vscode/
 *.code-workspace
