@@ -69,7 +69,7 @@ ios/Flutter/flutter_export_environment.sh
 .flutter-plugins
 .flutter-plugins-dependencies
 
-# Environment & secrets (do not commit secrets)
+# ⚠️ CRITICAL: Environment & secrets (NEVER commit these!)
 .env
 .env.*
 env.local
@@ -79,10 +79,20 @@ lib/secrets.dart
 lib/**/secrets.dart
 lib/config/gemini_*.dart
 lib/services/gemini_*.dart
+*.pem
+*.p12
+*.pfx
+service-account*.json
+private-key*.json
 
-# Firebase platform config (prefer local only)
+# ⚠️ CRITICAL: Firebase platform config (keep local only for security)
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+firebase-config*.json
+
+# API Keys and tokens (NEVER commit)
+**/api_keys.dart
+**/secrets/*.dart
 
 # IDE
 .vscode/
