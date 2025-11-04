@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import '../providers/preferences_provider.dart';
 
 /// Splash Screen
 /// Displays app logo and branding while initializing the app
@@ -45,14 +47,27 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   Future<void> _bootstrapAndNavigate() async {
-    // Show splash for 3commit and push to giithyub
-    // seconds (reduced from 5)
+    // Show splash for 3 seconds
     await Future.delayed(const Duration(milliseconds: 3000));
 
     if (!_navigated && mounted) {
       _navigated = true;
       
       try {
+        // Check if onboarding is completed
+        final prefsProvider = Provider.of<PreferencesProvider>(context, listen: false);
+        
+        // Wait for preferences to load if still loading
+        if (prefsProvider.isLoading) {
+          await Future.delayed(const Duration(milliseconds: 500));
+        }
+        
+        // If onboarding not completed, show onboarding
+        if (!prefsProvider.hasCompletedOnboarding) {
+          Navigator.of(context).pushReplacementNamed('/onboarding');
+          return;
+        }
+        
         final prefs = await SharedPreferences.getInstance();
         final languageSelected = prefs.getBool('language_selected') ?? false;
         
@@ -81,8 +96,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         }
       } catch (e) {
         print('Error in splash navigation: $e');
-        // On any error, go to language selection as fallback
-        Navigator.of(context).pushReplacementNamed('/language');
+        // On any error, go to onboarding as fallback
+        Navigator.of(context).pushReplacementNamed('/onboarding');
       }
     }
   }

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'localization/app_localizations_delegate.dart';
 import 'screens/splash_screen.dart';
@@ -23,6 +24,8 @@ import 'features/ai_disease_detection/ai_disease_detection_screen.dart';
 import 'features/crop_recommendation/crop_recommendation_screen.dart';
 import 'screens/government_schemes_screen.dart';
 import 'screens/profile_screen.dart';
+import 'screens/onboarding/onboarding_welcome_screen.dart';
+import 'providers/preferences_provider.dart';
 // import 'screens/crop_deal_screen.dart' as crop_deal;
 // import 'screens/schedule_screen.dart';
 // import 'screens/irrigation_screen.dart';
@@ -67,7 +70,12 @@ void main() async {
     ),
   );
 
-  runApp(const GreenFarmApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => PreferencesProvider(),
+      child: const GreenFarmApp(),
+    ),
+  );
 }
 
 class GreenFarmApp extends StatefulWidget {
@@ -149,6 +157,9 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
 
+      // Theme with Provider support for light/dark modes
+      themeMode: context.watch<PreferencesProvider>().themeMode,
+      
       theme: ThemeData(
         primarySwatch: Colors.green,
         primaryColor: const Color(0xFF4CAF50),
@@ -195,8 +206,59 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
           ),
         ),
       ),
+      
+      // Dark theme
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.green,
+        primaryColor: const Color(0xFF4CAF50),
+        scaffoldBackgroundColor: const Color(0xFF121212),
+        fontFamily: 'Roboto',
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF81C784),
+          ),
+          displayMedium: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF66BB6A),
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+            color: Color(0xFFE0E0E0),
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: Color(0xFFBDBDBD),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF4CAF50),
+            foregroundColor: Colors.white,
+            elevation: 2,
+            shadowColor: Colors.black26,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          ),
+        ),
+      ),
+      
       routes: {
         '/': (context) => const SplashScreen(),
+        '/onboarding': (context) => const OnboardingWelcomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/forgot-password': (context) => const ForgotPasswordScreen(),
