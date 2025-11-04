@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'localization/app_localizations_delegate.dart';
@@ -24,7 +23,8 @@ import 'features/ai_disease_detection/ai_disease_detection_screen.dart';
 import 'features/crop_recommendation/crop_recommendation_screen.dart';
 import 'screens/government_schemes_screen.dart';
 import 'screens/profile_screen.dart';
-import 'screens/onboarding/onboarding_welcome_screen.dart';
+import 'screens/settings_screen.dart';
+import 'screens/onboarding/simple_onboarding_screen.dart';
 import 'providers/preferences_provider.dart';
 // import 'screens/crop_deal_screen.dart' as crop_deal;
 // import 'screens/schedule_screen.dart';
@@ -207,13 +207,55 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         ),
       ),
       
-      // Dark theme
+      // Dark theme - Properly designed for dark mode
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.green,
-        primaryColor: const Color(0xFF4CAF50),
+        primaryColor: const Color(0xFF66BB6A),
         scaffoldBackgroundColor: const Color(0xFF121212),
+        cardColor: const Color(0xFF1E1E1E),
+        dividerColor: const Color(0xFF2E2E2E),
         fontFamily: 'Roboto',
+        
+        // AppBar theme for dark mode
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1E1E1E),
+          elevation: 0,
+          iconTheme: IconThemeData(color: Colors.white),
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        
+        // Card theme for dark mode
+        cardTheme: const CardThemeData(
+          color: Color(0xFF1E1E1E),
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
+        ),
+        
+        // Input decoration theme for dark mode
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFF2E2E2E),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFF3E3E3E)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFF3E3E3E)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFF66BB6A), width: 2),
+          ),
+        ),
+        
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
@@ -224,12 +266,12 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
           displayLarge: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF81C784),
+            color: Color(0xFFE0E0E0),
           ),
           displayMedium: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF66BB6A),
+            color: Color(0xFFE0E0E0),
           ),
           bodyLarge: TextStyle(
             fontSize: 16,
@@ -258,7 +300,8 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
       
       routes: {
         '/': (context) => const SplashScreen(),
-        '/onboarding': (context) => const OnboardingWelcomeScreen(),
+        '/onboarding': (context) => const SimpleOnboardingScreen(),
+        '/settings': (context) => const SettingsScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/forgot-password': (context) => const ForgotPasswordScreen(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/preferences_provider.dart';
+import '../../providers/preferences_provider.dart';
 import 'onboarding_land_info_screen.dart';
 
 /// Welcome screen - First screen in onboarding flow
