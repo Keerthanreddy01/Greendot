@@ -143,6 +143,11 @@ flutter pub get
 - Android: place `google-services.json` in `android/app/` (already referenced)
 - iOS: place `GoogleService-Info.plist` in `ios/Runner/`
 - FlutterFire recommended: generate `lib/firebase_options.dart` (already present)
+  
+  IMPORTANT: This repository has been sanitized for public/hackathon sharing.
+  - All real Firebase configuration values and service files have been removed or redacted.
+  - `lib/firebase_options.dart` contains placeholders. Run `flutterfire configure` locally to recreate your own config.
+  - Do NOT commit sensitive files like `android/app/google-services.json`, `ios/Runner/GoogleService-Info.plist`, or any private keys.
 
 ### 4) Run the app
 
@@ -254,7 +259,7 @@ Note: If you intend to switch to an open-source license (e.g., MIT), update `LIC
 | 👨‍💻 Project Lead | Keerthan Reddy |
 
 Contact
-- Email: [keerthanreddy1706@gmail.com](mailto:keerthanreddy1706@gmail.com)
+- For privacy, direct contact details have been removed from this public copy.
 - Issues: open a ticket via GitHub Issues
 - Discussions: start a thread in the Discussions tab
 

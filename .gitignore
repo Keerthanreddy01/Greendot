@@ -89,6 +89,8 @@ private-key*.json
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 firebase-config*.json
+# Top-level firebase config used by flutterfire CLI. Keep local only.
+firebase.json
 
 # API Keys and tokens (NEVER commit)
 **/api_keys.dart
@@ -111,3 +113,5 @@ Thumbs.db
 # If you prefer to keep them local, uncomment the following lines:
 # android/app/google-services.json
 # ios/Runner/GoogleService-Info.plist
+# If you created a local firebase options helper for development, ignore it:
+# lib/firebase_options_private.dart

@@ -41,54 +41,64 @@ class DefaultFirebaseOptions {
     }
   }
 
-  // TODO: Replace these with your actual Firebase configuration
-  // Run 'flutterfire configure' to generate these values automatically
+  // IMPORTANT: This file has been sanitized for public sharing.
+  // The original Firebase configuration values (API keys, App IDs,
+  // project IDs, etc.) have been removed to avoid leaking sensitive
+  // information. To run the app locally, regenerate this file by
+  // running the FlutterFire CLI or provide your own `FirebaseOptions`.
+  //
+  // Recommended options:
+  // 1) Run `flutterfire configure` in this repo to recreate this file.
+  // 2) OR create a new file `lib/firebase_options_private.dart` that
+  //    provides `DefaultFirebaseOptions.currentPlatform` and import it
+  //    from `main.dart` during local development (do NOT commit it).
+  //
+  // If you accidentally rely on real keys committed here, rotate them
+  // in the Firebase console immediately.
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBhOm_3P8UaJytwa_OJkTxBWqxoiITMer4',
-    appId: '1:134716946611:web:74418a649cdce9339bd8c6',
-    messagingSenderId: '134716946611',
-    projectId: 'greendot-a2731',
-    authDomain: 'greendot-a2731.firebaseapp.com',
-    storageBucket: 'greendot-a2731.firebasestorage.app',
+    apiKey: 'REDACTED',
+    appId: 'REDACTED',
+    messagingSenderId: 'REDACTED',
+    projectId: 'REDACTED',
+    authDomain: 'REDACTED',
+    storageBucket: 'REDACTED',
   );
 
-  
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAK5sc2RQ1VxBd6dhrNcyjZ2uhBcpFQlnI',
-    appId: '1:134716946611:android:826bea6e5ab812379bd8c6',
-    messagingSenderId: '134716946611',
-    projectId: 'greendot-a2731',
-    databaseURL: 'https://greendot-a2731-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'greendot-a2731.firebasestorage.app',
+    apiKey: 'REDACTED',
+    appId: 'REDACTED',
+    messagingSenderId: 'REDACTED',
+    projectId: 'REDACTED',
+    databaseURL: 'REDACTED',
+    storageBucket: 'REDACTED',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDCNPRbFhi4yFR29X4p39PiS98Z9GoBWyM',
-    appId: '1:134716946611:ios:0969a10779e1b9ae9bd8c6',
-    messagingSenderId: '134716946611',
-    projectId: 'greendot-a2731',
-    storageBucket: 'greendot-a2731.firebasestorage.app',
-    iosBundleId: 'com.example.greenDot',
+    apiKey: 'REDACTED',
+    appId: 'REDACTED',
+    messagingSenderId: 'REDACTED',
+    projectId: 'REDACTED',
+    storageBucket: 'REDACTED',
+    iosBundleId: 'REDACTED',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDCNPRbFhi4yFR29X4p39PiS98Z9GoBWyM',
-    appId: '1:134716946611:ios:0969a10779e1b9ae9bd8c6',
-    messagingSenderId: '134716946611',
-    projectId: 'greendot-a2731',
-    storageBucket: 'greendot-a2731.firebasestorage.app',
-    iosBundleId: 'com.example.greenDot',
+    apiKey: 'REDACTED',
+    appId: 'REDACTED',
+    messagingSenderId: 'REDACTED',
+    projectId: 'REDACTED',
+    storageBucket: 'REDACTED',
+    iosBundleId: 'REDACTED',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBhOm_3P8UaJytwa_OJkTxBWqxoiITMer4',
-    appId: '1:134716946611:web:1a6445463079424e9bd8c6',
-    messagingSenderId: '134716946611',
-    projectId: 'greendot-a2731',
-    authDomain: 'greendot-a2731.firebaseapp.com',
-    storageBucket: 'greendot-a2731.firebasestorage.app',
+    apiKey: 'REDACTED',
+    appId: 'REDACTED',
+    messagingSenderId: 'REDACTED',
+    projectId: 'REDACTED',
+    authDomain: 'REDACTED',
+    storageBucket: 'REDACTED',
   );
 
 }
