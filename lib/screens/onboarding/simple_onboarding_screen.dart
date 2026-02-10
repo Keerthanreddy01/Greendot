@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/preferences_provider.dart';
+import '../../localization/app_localizations.dart';
 
 class SimpleOnboardingScreen extends StatefulWidget {
   const SimpleOnboardingScreen({super.key});
@@ -15,14 +16,17 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
   String _selectedTheme = 'System';
   final Set<String> _selectedCrops = {};
 
-  // Simple list of common crops
-  final List<Map<String, String>> _crops = [
-    {'name': 'Rice', 'icon': '🌾'},
-    {'name': 'Wheat', 'icon': '🌾'},
-    {'name': 'Maize', 'icon': '🌽'},
-    {'name': 'Cotton', 'icon': '🌱'},
-    {'name': 'Vegetables', 'icon': '🥬'},
-  ];
+  // Dynamic list of common crops based on context
+  List<Map<String, String>> _getCrops(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return [
+      {'id': 'Rice', 'name': l10n.rice, 'icon': '🌾'},
+      {'id': 'Wheat', 'name': l10n.wheat, 'icon': '🌾'},
+      {'id': 'Maize', 'name': l10n.maize, 'icon': '🌽'},
+      {'id': 'Cotton', 'name': l10n.cotton, 'icon': '🌱'},
+      {'id': 'Vegetables', 'name': l10n.vegetables, 'icon': '🥬'},
+    ];
+  }
 
   void _completeOnboarding() {
     final prefsProvider = Provider.of<PreferencesProvider>(context, listen: false);
@@ -57,6 +61,8 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
+    final crops = _getCrops(context);
     
     return Scaffold(
       body: SafeArea(
@@ -69,7 +75,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
               
               // Welcome Header
               Text(
-                'Welcome to GreenDot! 🌱',
+                l10n.setupFarm,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
@@ -77,7 +83,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Let\'s set up your farm in just a minute',
+                l10n.setupFarmSubtitle,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: isDark ? Colors.grey[400] : Colors.grey[600],
                 ),
@@ -86,7 +92,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
 
               // Farm Size Section
               Text(
-                '1. Your Farm Size',
+                l10n.farmSize,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -100,7 +106,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
                       controller: _landController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'Size',
+                        labelText: l10n.size,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -121,9 +127,9 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
                         fillColor: isDark ? Colors.grey[800] : Colors.grey[100],
                         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                       ),
-                      items: ['Acres', 'Hectares'].map((unit) {
+                      items: [l10n.acres, l10n.hectares].map((unit) {
                         return DropdownMenuItem(
-                          value: unit,
+                          value: unit == l10n.acres ? 'Acres' : 'Hectares',
                           child: Text(unit),
                         );
                       }).toList(),
@@ -140,7 +146,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
 
               // Crops Section
               Text(
-                '2. What do you grow?',
+                l10n.whatDoYouGrow,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -149,8 +155,8 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
               Wrap(
                 spacing: 12,
                 runSpacing: 12,
-                children: _crops.map((crop) {
-                  final isSelected = _selectedCrops.contains(crop['name']);
+                children: crops.map((crop) {
+                  final isSelected = _selectedCrops.contains(crop['id']);
                   return FilterChip(
                     selected: isSelected,
                     label: Row(
@@ -164,9 +170,9 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
                     onSelected: (selected) {
                       setState(() {
                         if (selected) {
-                          _selectedCrops.add(crop['name']!);
+                          _selectedCrops.add(crop['id']!);
                         } else {
-                          _selectedCrops.remove(crop['name']);
+                          _selectedCrops.remove(crop['id']);
                         }
                       });
                     },
@@ -179,7 +185,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
 
               // Theme Section
               Text(
-                '3. Choose Your Theme',
+                l10n.chooseTheme,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -188,27 +194,29 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
               Wrap(
                 spacing: 12,
                 runSpacing: 12,
-                children: ['Light', 'Dark', 'System'].map((theme) {
-                  final isSelected = _selectedTheme == theme;
+                children: [
+                  {'val': 'Light', 'label': l10n.light, 'icon': Icons.light_mode},
+                  {'val': 'Dark', 'label': l10n.dark, 'icon': Icons.dark_mode},
+                  {'val': 'System', 'label': l10n.system, 'icon': Icons.brightness_auto},
+                ].map((theme) {
+                  final isSelected = _selectedTheme == theme['val'];
                   return ChoiceChip(
                     label: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          theme == 'Light' ? Icons.light_mode : 
-                          theme == 'Dark' ? Icons.dark_mode : 
-                          Icons.brightness_auto,
+                          theme['icon'] as IconData,
                           size: 18,
                         ),
                         const SizedBox(width: 8),
-                        Text(theme),
+                        Text(theme['label'] as String),
                       ],
                     ),
                     selected: isSelected,
                     onSelected: (selected) {
                       if (selected) {
                         setState(() {
-                          _selectedTheme = theme;
+                          _selectedTheme = theme['val'] as String;
                         });
                       }
                     },
@@ -231,9 +239,9 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Start Farming 🚀',
-                    style: TextStyle(
+                  child: Text(
+                    l10n.startFarming,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -249,7 +257,7 @@ class _SimpleOnboardingScreenState extends State<SimpleOnboardingScreen> {
                     Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
                   },
                   child: Text(
-                    'Skip for now',
+                    l10n.skipForNow,
                     style: TextStyle(
                       color: isDark ? Colors.grey[400] : Colors.grey[600],
                     ),

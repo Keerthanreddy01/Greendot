@@ -322,4 +322,84 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get stormy => 'तूफ़ान';
+
+  // Onboarding
+  @override
+  String get setupFarm => 'अपना फार्म सेटअप करें 🌱';
+
+  @override
+  String get setupFarmSubtitle => 'बस एक मिनट में अपना फार्म सेटअप करें';
+
+  @override
+  String get farmSize => '1. आपके फार्म का आकार';
+
+  @override
+  String get size => 'आकार';
+
+  @override
+  String get whatDoYouGrow => '2. आप क्या उगाते हैं?';
+
+  @override
+  String get chooseTheme => '3. अपनी थीम चुनें';
+
+  @override
+  String get startFarming => 'खेती शुरू करें 🚀';
+
+  @override
+  String get skipForNow => 'अभी छोड़ें';
+
+  @override
+  String get acres => 'एकड़';
+
+  @override
+  String get hectares => 'हेक्टेयर';
+
+  @override
+  String get light => 'लाइट';
+
+  @override
+  String get dark => 'डार्क';
+
+  @override
+  String get system => 'सिस्टम';
+
+  @override
+  String get rice => 'चावल';
+
+  @override
+  String get wheat => 'गेहूं';
+
+  @override
+  String get maize => 'मक्का';
+
+  @override
+  String get cotton => 'कपास';
+
+  @override
+  String get vegetables => 'सब्जियां';
+
+  // Market Prices
+  @override
+  String get mandiPrices => 'मंडी भाव 📊';
+
+  @override
+  String get searchCrops => 'फसलें खोजें (जैसे कपास, चावल)';
+
+  @override
+  String get allStates => 'सभी राज्य';
+
+  @override
+  String get allDistricts => 'सभी जिले';
+
+  @override
+  String get minPrice => 'न्यूनतम';
+
+  @override
+  String get maxPrice => 'अधिकतम';
+
+  @override
+  String get modalPrice => 'मॉडल';
+
+  @override
+  String get noDataFound => 'आपके फिल्टर से मेल खाने वाला कोई डेटा नहीं मिला।';
 }

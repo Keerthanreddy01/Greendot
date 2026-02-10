@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/preferences_provider.dart';
+import '../localization/app_localizations.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
   final Function(Locale) onLanguageSelected;
@@ -110,8 +113,26 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
       'locale': const Locale('pa', 'IN'),
       'icon': Icons.chat,
       'color': const Color(0xFFCDDC39),
-      'greeting': 'ਸਤ ਸ੍ਰੀ ਅਕਾਲ!',
+      'greeting': 'ਸਤ స੍ਰੀ ਅਕਾਲ!',
       'description': 'ਪੰਜਾਬ ਦੀ ਭਾਸ਼ਾ',
+    },
+    {
+      'name': 'Odia',
+      'nativeName': 'ଓଡ଼ିଆ',
+      'locale': const Locale('or', 'IN'),
+      'icon': Icons.description,
+      'color': const Color(0xFF795548),
+      'greeting': 'ନମସ୍କାର!',
+      'description': 'ଓଡ଼ିଶା ଭାଷା',
+    },
+    {
+      'name': 'Assamese',
+      'nativeName': 'অসমীয়া',
+      'locale': const Locale('as', 'IN'),
+      'icon': Icons.chat_bubble,
+      'color': const Color(0xFFFFC107),
+      'greeting': 'নমસ્কাৰ!',
+      'description': 'অসমীয়া ভাষা',
     },
   ];
 
@@ -214,6 +235,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
   }
 
   Widget _buildHeader() {
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
         Container(
@@ -239,9 +261,9 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
           ),
         ),
         const SizedBox(height: 24),
-        const Text(
-          'Select Your Language',
-          style: TextStyle(
+        Text(
+          l10n.chooseLanguage,
+          style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
             color: Color(0xFF1B5E20),
@@ -251,7 +273,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
         ),
         const SizedBox(height: 8),
         Text(
-          'Choose your preferred language',
+          l10n.languageSelectionSubtitle,
           style: TextStyle(
             fontSize: 15,
             color: Colors.grey[600],
@@ -398,50 +420,59 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
   }
 
   Widget _buildFooter() {
+    final l10n = AppLocalizations.of(context);
     return Column(
       children: [
-        if (_selectedIndex != null && !_isNavigating)
-          TweenAnimationBuilder<double>(
-            duration: const Duration(milliseconds: 400),
-            tween: Tween(begin: 0.0, end: 1.0),
-            curve: Curves.easeOutBack,
-            builder: (context, value, child) {
-              return Transform.scale(
-                scale: value,
-                child: ElevatedButton(
-                  onPressed: _confirmSelection,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4CAF50),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    elevation: 8,
-                    shadowColor: const Color(0xFF4CAF50).withOpacity(0.5),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Continue',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
+        AnimatedSize(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOutBack,
+          child: _selectedIndex != null && !_isNavigating
+            ? Container(
+                padding: const EdgeInsets.only(top: 10),
+                child: TweenAnimationBuilder<double>(
+                  duration: const Duration(milliseconds: 500),
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  curve: Curves.elasticOut,
+                  builder: (context, value, child) {
+                    return Transform.scale(
+                      scale: value,
+                      child: ElevatedButton(
+                        onPressed: _confirmSelection,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF4CAF50),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 8,
+                          shadowColor: const Color(0xFF4CAF50).withOpacity(0.5),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              l10n.next,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.arrow_forward, size: 20),
+                          ],
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward, size: 20),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        const SizedBox(height: 16),
+              )
+            : const SizedBox.shrink(),
+        ),
+        const SizedBox(height: 24),
         Text(
-          'You can change this later in settings',
+          l10n.languageChangeNote,
           style: TextStyle(
             fontSize: 12,
             color: Colors.grey[500],
@@ -480,9 +511,12 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
     await Future.delayed(const Duration(milliseconds: 300));
     
     if (mounted) {
-      // Navigate to home screen (skip login until Firebase is set up)
-      // TODO: Change to '/login' after Firebase setup
-      Navigator.pushReplacementNamed(context, '/home');
+      final prefsProvider = Provider.of<PreferencesProvider>(context, listen: false);
+      if (!prefsProvider.hasCompletedOnboarding) {
+        Navigator.pushReplacementNamed(context, '/onboarding');
+      } else {
+        Navigator.pushReplacementNamed(context, '/home');
+      }
     }
   }
 }

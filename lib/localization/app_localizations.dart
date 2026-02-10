@@ -138,4 +138,34 @@ abstract class AppLocalizations {
   String get cloudy;
   String get rainy;
   String get stormy;
+
+  // Onboarding
+  String get setupFarm => 'Setup Your Farm 🌱';
+  String get setupFarmSubtitle => "Let's set up your farm in just a minute";
+  String get farmSize => '1. Your Farm Size';
+  String get size => 'Size';
+  String get whatDoYouGrow => '2. What do you grow?';
+  String get chooseTheme => '3. Choose Your Theme';
+  String get startFarming => 'Start Farming 🚀';
+  String get skipForNow => 'Skip for now';
+  String get acres => 'Acres';
+  String get hectares => 'Hectares';
+  String get light => 'Light';
+  String get dark => 'Dark';
+  String get system => 'System';
+  String get rice => 'Rice';
+  String get wheat => 'Wheat';
+  String get maize => 'Maize';
+  String get cotton => 'Cotton';
+  String get vegetables => 'Vegetables';
+
+  // Market Prices
+  String get mandiPrices => 'Mandi Prices 📊';
+  String get searchCrops => 'Search crops (e.g. Cotton, Rice)';
+  String get allStates => 'All States';
+  String get allDistricts => 'All Districts';
+  String get minPrice => 'Min';
+  String get maxPrice => 'Max';
+  String get modalPrice => 'Modal';
+  String get noDataFound => 'No data found matches your filters.';
 }

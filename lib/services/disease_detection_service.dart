@@ -26,14 +26,14 @@ class DiseaseDetectionService {
     }
   }
 
-  Future<DiseaseDetectionResult> detectDisease(File imageFile) async {
+  Future<DiseaseDetectionResult> detectDisease(File imageFile, {String language = 'English'}) async {
     if (!_isModelLoaded) {
       await loadModel();
     }
 
     try {
       // Try Gemini Vision API first for accurate detection
-      final geminiResult = await GeminiService.analyzeImage(imageFile, language: 'Telugu');
+      final geminiResult = await GeminiService.analyzeImage(imageFile, language: language);
       
       if (geminiResult['success'] == true) {
         return _parseGeminiResult(geminiResult);

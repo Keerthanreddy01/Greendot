@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class GeminiService {
-  // Gemini API key configured via --dart-define (do not hardcode)
-  static const String _apiKey = String.fromEnvironment(
-    'GEMINI_API_KEY',
-    defaultValue: 'YOUR_GEMINI_API_KEY_HERE',
-  );
+  // Gemini API key configured via .env file
+  static String get _apiKey => dotenv.get('GEMINI_API_KEY', fallback: 'YOUR_GEMINI_API_KEY_HERE');
   static const String _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
   
   // For text-only queries (Voice Assistant)
@@ -104,7 +102,7 @@ If a PLANT is visible:
 8. Prevention (నివారణ): How to prevent future occurrence
 9. Confidence (నమ్మకం): Your confidence level (percentage)
 
-Format as JSON with Telugu text.
+Format as JSON with ${language ?? 'Telugu'} text.
 ''';
 
       final response = await http.post(
@@ -178,7 +176,8 @@ Format as JSON with Telugu text.
         'rawText': text,
         'isNoPlant': text.contains('మొక్క కనిపించడం లేదు') || 
                      text.toLowerCase().contains('no plant') ||
-                     text.contains('place the plant'),
+                     text.contains('place the plant') ||
+                     text.contains('మొక్కను చూపండి'),
         'data': {
           'message': text,
         }
@@ -200,7 +199,7 @@ Format as JSON with Telugu text.
     String enhancedPrompt = '''
 User asked: "$command"
 
-You are Kisan, a helpful farming assistant. Answer in English clearly and concisely.
+You are Kisan, a helpful farming assistant. Answer in ${language ?? 'English'} language clearly and concisely.
 
 Available Market Prices (per quintal):
 

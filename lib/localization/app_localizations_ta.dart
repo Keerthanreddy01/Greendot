@@ -312,4 +312,84 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get stormy => 'புயல்';
+
+  // Onboarding
+  @override
+  String get setupFarm => 'உங்கள் பண்ணையை அமைக்கவும் 🌱';
+
+  @override
+  String get setupFarmSubtitle => 'ஒரு நிமிடத்தில் உங்கள் பண்ணையை அமைப்போம்';
+
+  @override
+  String get farmSize => '1. உங்கள் பண்ணை அளவு';
+
+  @override
+  String get size => 'அளவு';
+
+  @override
+  String get whatDoYouGrow => '2. நீங்கள் என்ன பயிரிடுகிறீர்கள்?';
+
+  @override
+  String get chooseTheme => '3. உங்கள் கருப்பொருளைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get startFarming => 'விவசாயத்தைத் தொடங்குங்கள் 🚀';
+
+  @override
+  String get skipForNow => 'இப்போதைக்குத் தவிர்க்கவும்';
+
+  @override
+  String get acres => 'ஏக்கர்';
+
+  @override
+  String get hectares => 'ஹெக்டேர்';
+
+  @override
+  String get light => 'லைட்';
+
+  @override
+  String get dark => 'டார்க்';
+
+  @override
+  String get system => 'சிஸ்டம்';
+
+  @override
+  String get rice => 'நெல்';
+
+  @override
+  String get wheat => 'கோதுமை';
+
+  @override
+  String get maize => 'சோளம்';
+
+  @override
+  String get cotton => 'பருத்தி';
+
+  @override
+  String get vegetables => 'காய்கறிகள்';
+
+  // Market Prices
+  @override
+  String get mandiPrices => 'மண்டி விலைகள் 📊';
+
+  @override
+  String get searchCrops => 'பயிர்களைத் தேடுங்கள் (உதாரணம்: பருத்தி, நெல்)';
+
+  @override
+  String get allStates => 'அனைத்து மாநிலங்கள்';
+
+  @override
+  String get allDistricts => 'அனைத்து மாவட்டங்கள்';
+
+  @override
+  String get minPrice => 'குறைந்தபட்ச';
+
+  @override
+  String get maxPrice => 'அதிகபட்ச';
+
+  @override
+  String get modalPrice => 'சராசரி';
+
+  @override
+  String get noDataFound => 'உங்கள் வடிகட்டல்களுக்குப் பொருந்தும் தரவு எதுவும் இல்லை.';
 }

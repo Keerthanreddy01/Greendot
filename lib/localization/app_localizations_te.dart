@@ -312,4 +312,84 @@ class AppLocalizationsTe extends AppLocalizations {
 
   @override
   String get stormy => 'తుఫాను';
+
+  // Onboarding
+  @override
+  String get setupFarm => 'మీ ఫామ్‌ను సెటప్ చేయండి 🌱';
+
+  @override
+  String get setupFarmSubtitle => 'కేవలం ఒక్క నిమిషంలో మీ ఫామ్‌ను సెటప్ చేద్దాం';
+
+  @override
+  String get farmSize => '1. మీ ఫామ్ పరిమాణం';
+
+  @override
+  String get size => 'పరిమాణం';
+
+  @override
+  String get whatDoYouGrow => '2. మీరు ఏమి పండిస్తారు?';
+
+  @override
+  String get chooseTheme => '3. మీ థీమ్‌ను ఎంచుకోండి';
+
+  @override
+  String get startFarming => 'వ్యవసాయం ప్రారంభించండి 🚀';
+
+  @override
+  String get skipForNow => 'ప్రస్తుతానికి వద్దు';
+
+  @override
+  String get acres => 'ఎకరాలు';
+
+  @override
+  String get hectares => 'హెక్టార్లు';
+
+  @override
+  String get light => 'లైట్';
+
+  @override
+  String get dark => 'డార్క్';
+
+  @override
+  String get system => 'సిస్టమ్';
+
+  @override
+  String get rice => 'వరి';
+
+  @override
+  String get wheat => 'గోధుమ';
+
+  @override
+  String get maize => 'మొక్కజొన్న';
+
+  @override
+  String get cotton => 'పత్తి';
+
+  @override
+  String get vegetables => 'కూరగాయలు';
+
+  // Market Prices
+  @override
+  String get mandiPrices => 'మండీ ధరలు 📊';
+
+  @override
+  String get searchCrops => 'పంటల కోసం వెతకండి (ఉదా: పత్తి, వరి)';
+
+  @override
+  String get allStates => 'అన్ని రాష్ట్రాలు';
+
+  @override
+  String get allDistricts => 'అన్ని జిల్లాలు';
+
+  @override
+  String get minPrice => 'కనీస';
+
+  @override
+  String get maxPrice => 'గరిష్ట';
+
+  @override
+  String get modalPrice => 'మధ్యస్థ';
+
+  @override
+  String get noDataFound => 'మీ ఫిల్టర్లకు సరిపోయే డేటా ఏదీ దొరకలేదు.';
 }

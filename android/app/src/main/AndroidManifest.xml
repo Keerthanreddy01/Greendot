@@ -29,7 +29,7 @@
     </queries>
     
     <application
-        android:label="Greendot"
+        android:label="Green Life"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

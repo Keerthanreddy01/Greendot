@@ -62,38 +62,23 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           await Future.delayed(const Duration(milliseconds: 500));
         }
         
-        // If onboarding not completed, show onboarding
+        final prefs = await SharedPreferences.getInstance();
+        final languageSelected = prefs.getBool('language_selected') ?? false;
+        
+        // Check if language is selected first (CRITICAL for user experience)
+        if (!languageSelected) {
+          Navigator.of(context).pushReplacementNamed('/language');
+          return;
+        }
+
+        // If language selected but onboarding not completed, show onboarding
         if (!prefsProvider.hasCompletedOnboarding) {
           Navigator.of(context).pushReplacementNamed('/onboarding');
           return;
         }
         
-        final prefs = await SharedPreferences.getInstance();
-        final languageSelected = prefs.getBool('language_selected') ?? false;
-        
-        // Check if language is selected first
-        if (!languageSelected) {
-          // First time user - select language first
-          Navigator.of(context).pushReplacementNamed('/language');
-          return;
-        }
-        
-        // Check Firebase authentication status (with safety check)
-        try {
-          final User? currentUser = FirebaseAuth.instance.currentUser;
-          
-          if (currentUser != null) {
-            // User is logged in - go to home screen
-            Navigator.of(context).pushReplacementNamed('/home');
-          } else {
-            // User is not logged in - go to login screen
-            Navigator.of(context).pushReplacementNamed('/login');
-          }
-        } catch (firebaseError) {
-          print('Firebase error: $firebaseError');
-          // If Firebase fails, still show login screen
-          Navigator.of(context).pushReplacementNamed('/login');
-        }
+        // Skip authentication and go straight to home
+        Navigator.of(context).pushReplacementNamed('/home');
       } catch (e) {
         print('Error in splash navigation: $e');
         // On any error, go to onboarding as fallback
@@ -156,7 +141,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         child: Column(
                           children: [
                             const Text(
-                              'Greendot',
+                              'Green Life',
                               style: TextStyle(
                                 fontSize: 36,
                                 fontWeight: FontWeight.bold,

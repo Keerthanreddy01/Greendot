@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:io';
 
 /// Firebase Service Class
@@ -14,8 +15,8 @@ class FirebaseService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: ['email'],
-    // Use the Web Client ID from google-services.json
-    serverClientId: '134716946611-1juo5e9ppbgtn7drggu73dvmem9t6hq1.apps.googleusercontent.com',
+    // Use the Web Client ID from .env file
+    serverClientId: dotenv.get('GOOGLE_SERVER_CLIENT_ID', fallback: ''),
   );
 
   // Get current user

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greendot/localization/app_localizations.dart';
 import 'dart:io';
 
 class ScanResultScreen extends StatefulWidget {
@@ -68,7 +69,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
-        title: const Text('Scan Results'),
+        title: Text(AppLocalizations.of(context).scanResults),
         backgroundColor: const Color(0xFF4CAF50),
         foregroundColor: Colors.white,
         elevation: 0,
@@ -100,13 +101,17 @@ class _ScanResultScreenState extends State<ScanResultScreen>
 
                     // Analysis Results
                     if (analysisResult != null) ...[
-                      _buildAnalysisHeader(analysisResult),
-                      const SizedBox(height: 24),
-                      _buildHealthStatus(analysisResult),
-                      const SizedBox(height: 24),
-                      _buildRecommendations(analysisResult),
-                      const SizedBox(height: 24),
-                      _buildActionButtons(),
+                      if (analysisResult['isNoPlant'] == true)
+                        _buildNoPlantWarning(context)
+                      else ...[
+                        _buildAnalysisHeader(analysisResult),
+                        const SizedBox(height: 24),
+                        _buildHealthStatus(analysisResult),
+                        const SizedBox(height: 24),
+                        _buildRecommendations(analysisResult),
+                        const SizedBox(height: 24),
+                        _buildActionButtons(),
+                      ],
                     ],
                   ],
                 ),
@@ -114,6 +119,76 @@ class _ScanResultScreenState extends State<ScanResultScreen>
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildNoPlantWarning(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          const Icon(
+            Icons.center_focus_weak,
+            size: 80,
+            color: Colors.orange,
+          ),
+          const SizedBox(height: 24),
+          const Text(
+            'మొక్కను చూపండి', // Show Plant
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1B5E20),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'దయచేసి పంట యొక్క ఆకును లేదా భాగాన్ని కెమెరాకు దగ్గరగా చూపండి. ఇది ఒక మొక్క కాదు అనిపిస్తుంది.',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 32),
+          SizedBox(
+            width: double.infinity,
+            height: 56,
+            child: ElevatedButton.icon(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.camera_alt),
+              label: const Text('మళ్లీ ప్రయత్నించండి'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4CAF50),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
+            child: Text(
+              AppLocalizations.of(context).back,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -222,7 +297,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
             children: [
               Expanded(
                 child: _buildMetricCard(
-                  title: 'Confidence',
+                  title: AppLocalizations.of(context).confidence,
                   value: '${(confidence * 100).toInt()}%',
                   icon: Icons.verified,
                   color: confidence > 0.8 ? Colors.green : Colors.orange,
@@ -231,8 +306,8 @@ class _ScanResultScreenState extends State<ScanResultScreen>
               const SizedBox(width: 12),
               Expanded(
                 child: _buildMetricCard(
-                  title: 'Disease Status',
-                  value: diseaseDetected ? 'Detected' : 'Healthy',
+                  title: 'Status',
+                  value: diseaseDetected ? AppLocalizations.of(context).diseaseDetected : AppLocalizations.of(context).healthyPlant,
                   icon: diseaseDetected ? Icons.warning : Icons.check_circle,
                   color: diseaseDetected ? Colors.red : Colors.green,
                 ),
@@ -318,7 +393,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
               Icon(statusIcon, color: statusColor, size: 28),
               const SizedBox(width: 12),
               Text(
-                diseaseDetected ? 'Disease Detected' : 'Healthy Plant',
+                diseaseDetected ? AppLocalizations.of(context).diseaseDetected : AppLocalizations.of(context).healthyPlant,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -412,9 +487,9 @@ class _ScanResultScreenState extends State<ScanResultScreen>
                 size: 24,
               ),
               const SizedBox(width: 12),
-              const Text(
-                'Recommendations',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context).recommendations,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF2E7D32),
@@ -513,7 +588,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
                   Navigator.pushNamed(context, '/tips');
                 },
                 icon: const Icon(Icons.lightbulb_outline),
-                label: const Text('More Tips'),
+                label: Text(AppLocalizations.of(context).proTips),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFF4CAF50),
                   side: const BorderSide(color: Color(0xFF4CAF50)),
@@ -533,7 +608,7 @@ class _ScanResultScreenState extends State<ScanResultScreen>
                   Navigator.pushNamed(context, '/camera');
                 },
                 icon: const Icon(Icons.camera_alt),
-                label: const Text('Scan Again'),
+                label: Text(AppLocalizations.of(context).retakePicture),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFF4CAF50),
                   side: const BorderSide(color: Color(0xFF4CAF50)),

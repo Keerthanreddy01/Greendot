@@ -492,62 +492,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
               Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () async {
+                  onTap: () {
                     HapticFeedback.lightImpact();
-                    // Show logout confirmation
-                    final shouldLogout = await showDialog<bool>(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Logout'),
-                        content: const Text('Are you sure you want to logout?'),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, false),
-                            child: const Text('Cancel'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () => Navigator.pop(context, true),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                            ),
-                            child: const Text('Logout'),
-                          ),
-                        ],
-                      ),
-                    );
-                    
-                    if (shouldLogout == true && mounted) {
-                      try {
-                        await FirebaseService().signOut();
-                        if (mounted) {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            '/login',
-                            (route) => false,
-                          );
-                        }
-                      } catch (e) {
-                        if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Logout failed: $e')),
-                          );
-                        }
-                      }
-                    }
+                    Navigator.pushNamed(context, '/settings');
                   },
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.2),
+                      color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: Colors.white.withOpacity(0.3),
@@ -555,7 +512,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     child: const Icon(
-                      Icons.logout,
+                      Icons.settings,
                       size: 20,
                       color: Colors.white,
                     ),

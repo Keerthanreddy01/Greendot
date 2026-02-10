@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 import '../services/voice_assistant_service.dart';
+import '../services/disease_detection_service.dart';
+import '../models/disease_detection_model.dart';
 
 class CameraScannerScreen extends StatefulWidget {
   const CameraScannerScreen({Key? key}) : super(key: key);
@@ -16,9 +18,11 @@ class _CameraScannerScreenState extends State<CameraScannerScreen> {
   CameraController? _controller;
   List<CameraDescription>? _cameras;
   bool _isInitializing = true;
+  bool _isAnalyzing = false;
   String? _error;
   File? _selectedImage;
   final ImagePicker _picker = ImagePicker();
+  final DiseaseDetectionService _detectionService = DiseaseDetectionService();
 
   @override
   void initState() {
@@ -68,6 +72,63 @@ class _CameraScannerScreenState extends State<CameraScannerScreen> {
     }
   }
 
+  Future<void> _processImage(File imageFile) async {
+    setState(() {
+      _isAnalyzing = true;
+    });
+
+    try {
+      final locale = Localizations.localeOf(context);
+      String languageName = 'English';
+      switch (locale.languageCode) {
+        case 'hi': languageName = 'Hindi'; break;
+        case 'te': languageName = 'Telugu'; break;
+        case 'ta': languageName = 'Tamil'; break;
+        case 'kn': languageName = 'Kannada'; break;
+        case 'ml': languageName = 'Malayalam'; break;
+        case 'mr': languageName = 'Marathi'; break;
+        case 'gu': languageName = 'Gujarati'; break;
+        case 'bn': languageName = 'Bengali'; break;
+        case 'pa': languageName = 'Punjabi'; break;
+        case 'or': languageName = 'Odia'; break;
+        case 'as': languageName = 'Assamese'; break;
+      }
+
+      final result = await _detectionService.detectDisease(imageFile, language: languageName);
+      
+      if (mounted) {
+        Navigator.pushNamed(
+          context,
+          '/scan-result',
+          arguments: {
+            'imagePath': imageFile.path,
+            'analysisResult': {
+              'plantType': result.diseaseName.contains('healthy') || result.diseaseName.contains('ఆరోగ్యవంతమైన') ? 'Plant Identified' : 'Disease Detected',
+              'confidence': result.confidence,
+              'diseaseDetected': !result.diseaseName.contains('healthy') && !result.diseaseName.contains('ఆరోగ్యవంతమైన') && !result.diseaseName.contains('లేదు'),
+              'healthStatus': result.diseaseName,
+              'threatLevel': result.severity,
+              'recommendations': result.treatments,
+              'isNoPlant': result.diseaseName.contains('లేదు') || result.diseaseName.contains('no plant'),
+            },
+          },
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error analyzing image: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isAnalyzing = false;
+        });
+      }
+    }
+  }
+
   Future<void> _takePicture() async {
     if (_controller == null || !_controller!.value.isInitialized) {
       return;
@@ -75,18 +136,12 @@ class _CameraScannerScreenState extends State<CameraScannerScreen> {
 
     try {
       final image = await _controller!.takePicture();
+      final imageFile = File(image.path);
       setState(() {
-        _selectedImage = File(image.path);
+        _selectedImage = imageFile;
       });
       
-      // Navigate to scan result screen
-      if (mounted) {
-        Navigator.pushNamed(
-          context,
-          '/scan-result',
-          arguments: _selectedImage,
-        );
-      }
+      await _processImage(imageFile);
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -100,18 +155,12 @@ class _CameraScannerScreenState extends State<CameraScannerScreen> {
     try {
       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
+        final imageFile = File(image.path);
         setState(() {
-          _selectedImage = File(image.path);
+          _selectedImage = imageFile;
         });
         
-        // Navigate to scan result screen
-        if (mounted) {
-          Navigator.pushNamed(
-            context,
-            '/scan-result',
-            arguments: _selectedImage,
-          );
-        }
+        await _processImage(imageFile);
       }
     } catch (e) {
       if (mounted) {
@@ -377,13 +426,58 @@ class _CameraScannerScreenState extends State<CameraScannerScreen> {
                         height: 280,
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: const Color(0xFF4CAF50),
+                            color: _isAnalyzing ? Colors.orange : const Color(0xFF4CAF50),
                             width: 3,
                           ),
                           borderRadius: BorderRadius.circular(20),
                         ),
+                        child: _isAnalyzing 
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                              ),
+                            )
+                          : null,
                       ),
                     ),
+                    
+                    if (_isAnalyzing)
+                      Container(
+                        color: Colors.black.withOpacity(0.5),
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4CAF50)),
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                'Analyzing crop health...',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black.withOpacity(0.5),
+                                      blurRadius: 10,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'This may take a few seconds',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                   ],
                 ),
       floatingActionButton: _error == null

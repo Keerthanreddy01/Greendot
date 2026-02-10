@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:convert';
 import 'dart:math' as math;
 import 'gemini_service.dart';
@@ -15,6 +16,30 @@ class VoiceAssistantService {
   static FlutterTts get flutterTts {
     _flutterTts ??= FlutterTts();
     return _flutterTts!;
+  }
+
+  // Get language code for STT and TTS
+  static String _getLanguageCode(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    return '${locale.languageCode}-${locale.countryCode ?? 'IN'}';
+  }
+
+  static String _getGeminiLanguage(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    switch (locale.languageCode) {
+      case 'hi': return 'Hindi';
+      case 'te': return 'Telugu';
+      case 'ta': return 'Tamil';
+      case 'kn': return 'Kannada';
+      case 'ml': return 'Malayalam';
+      case 'mr': return 'Marathi';
+      case 'gu': return 'Gujarati';
+      case 'bn': return 'Bengali';
+      case 'pa': return 'Punjabi';
+      case 'or': return 'Odia';
+      case 'as': return 'Assamese';
+      default: return 'English';
+    }
   }
 
   // Telugu language mappings
@@ -97,10 +122,20 @@ class VoiceAssistantService {
   }
 
   static Future<void> startListening(BuildContext context) async {
+    // Check and request microphone permission explicitly
+    final status = await Permission.microphone.status;
+    if (!status.isGranted) {
+      final result = await Permission.microphone.request();
+      if (!result.isGranted) {
+        _showErrorDialog(context, 'మైక్రోఫోన్ అనుమతి అవసరం. దయచేసి సెట్టింగ్‌లలో అనుమతిని ఇవ్వండి.');
+        return;
+      }
+    }
+
     if (!_speechEnabled) {
       await initialize();
       if (!_speechEnabled) {
-        _showErrorDialog(context, 'వాయిస్ గుర్తింపు అందుబాటులో లేదు. మైక్రోఫోన్ అనుమతిని తనిఖీ చేయండి.');
+        _showErrorDialog(context, 'వాయిస్ గుర్తింపు అందుబాటులో లేదు. మీ పరికరంలో వాయిస్ సేవలను సక్రియం చేయండి.');
         return;
       }
     }
@@ -122,19 +157,25 @@ class VoiceAssistantService {
     );
 
     try {
+      final localeId = _getLanguageCode(context);
+      final geminiLang = _getGeminiLanguage(context);
+      
+      // Update TTS language
+      await flutterTts.setLanguage(localeId);
+
       await _speechToText.listen(
         onResult: (result) {
           print('Speech result: ${result.recognizedWords}, final: ${result.finalResult}');
           if (result.finalResult && result.recognizedWords.isNotEmpty) {
             Navigator.of(context, rootNavigator: true).pop(); // Close dialog
-            _processVoiceCommand(context, result.recognizedWords);
+            _processVoiceCommand(context, result.recognizedWords, geminiLang);
             _isListening = false;
           }
         },
         listenFor: const Duration(seconds: 60),
         pauseFor: const Duration(seconds: 10),
         partialResults: true,
-        localeId: 'en-IN', // Use English-India for better recognition
+        localeId: localeId,
         cancelOnError: false,
         listenMode: ListenMode.confirmation,
       );
@@ -239,7 +280,7 @@ class VoiceAssistantService {
                   onPressed: () {
                     _stopListening();
                     Navigator.of(context).pop();
-                    _processVoiceCommand(context, "How is the weather today?");
+                    _processVoiceCommand(context, "How is the weather today?", _getGeminiLanguage(context));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF4CAF50),
@@ -264,72 +305,47 @@ class VoiceAssistantService {
     }
   }
 
-  static Future<void> _processVoiceCommand(BuildContext context, String command) async {
+  static Future<void> _processVoiceCommand(BuildContext context, String command, String language) async {
     // Try Gemini API first for better responses
     String response;
     try {
-      response = await GeminiService.processVoiceCommand(command, language: 'Telugu');
+      response = await GeminiService.processVoiceCommand(command, language: language);
       
       // Fallback to local responses if Gemini fails or API not configured
       if (response.contains('configure') || response.contains('కాన్ఫిగర్')) {
-        response = _analyzeCommand(command);
+        response = _analyzeCommand(command, language);
       }
     } catch (e) {
       print('Gemini error, using fallback: $e');
-      response = _analyzeCommand(command);
+      response = _analyzeCommand(command, language);
     }
     
     await _speakResponse(response);
-    _showResponseDialog(context, command, response);
+    _showResponseDialog(context, command, response, language);
   }
 
-  static String _analyzeCommand(String command) {
+  static String _analyzeCommand(String command, String language) {
     String lowerCommand = command.toLowerCase();
     
     // Check for greeting
     if (lowerCommand.contains('హాయ్') || 
         lowerCommand.contains('నమస్కారం') || 
-        lowerCommand.contains('హలో')) {
-      return _teluguResponses['greeting']!;
+        lowerCommand.contains('హలో') ||
+        lowerCommand.contains('hello') ||
+        lowerCommand.contains('hi')) {
+      return language == 'Telugu' ? _teluguResponses['greeting']! : 'Hello! I am Kisan, your farming assistant. How can I help you?';
     }
 
     // Analyze based on keywords
     for (String category in _teluguKeywords.keys) {
       for (String keyword in _teluguKeywords[category]!) {
         if (lowerCommand.contains(keyword)) {
-          return _teluguResponses[category] ?? _teluguResponses['not_understood']!;
+          return language == 'Telugu' ? (_teluguResponses[category] ?? _teluguResponses['not_understood']!) : 'I found information about $category. Please check the relevant section in the app.';
         }
       }
     }
 
-    // Check for specific phrases
-    if (lowerCommand.contains('ఎలా ఉంది') || lowerCommand.contains('ఏమిటి')) {
-      if (lowerCommand.contains('వాతావరణం')) {
-        return _teluguResponses['weather']!;
-      }
-      if (lowerCommand.contains('ధర')) {
-        return _teluguResponses['market_prices']!;
-      }
-    }
-
-    if (lowerCommand.contains('సహాయం') || lowerCommand.contains('హెల్ప్')) {
-      return _teluguResponses['help']!;
-    }
-
-    // Generate dynamic responses based on context
-    if (lowerCommand.contains('రైతు') && lowerCommand.contains('సంప్రదింపు')) {
-      return _getFarmerContactResponse();
-    }
-
-    if (lowerCommand.contains('వ్యాపారి') && lowerCommand.contains('మంచి')) {
-      return _getBestTraderResponse();
-    }
-
-    if (lowerCommand.contains('ఒప్పందం') && lowerCommand.contains('ప్రారంభించు')) {
-      return _getDealStartResponse();
-    }
-
-    return _teluguResponses['not_understood']!;
+    return language == 'Telugu' ? _teluguResponses['not_understood']! : 'Sorry, I couldn\'t understand that. Please try again or ask in a simpler way.';
   }
 
   static String _getFarmerContactResponse() {
@@ -370,7 +386,7 @@ class VoiceAssistantService {
     }
   }
 
-  static void _showResponseDialog(BuildContext context, String command, String response) {
+  static void _showResponseDialog(BuildContext context, String command, String response, String language) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -402,9 +418,9 @@ class VoiceAssistantService {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'కిసాన్ సమాధానం',
-                  style: TextStyle(
+                Text(
+                  language == 'Telugu' ? 'కిసాన్ సమాధానం' : 'Kisan Response',
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2E7D32),
@@ -418,7 +434,7 @@ class VoiceAssistantService {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'మీరు అడిగారు: "$command"',
+                    language == 'Telugu' ? 'మీరు అడిగారు: "$command"' : 'You asked: "$command"',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey[600],
@@ -446,7 +462,7 @@ class VoiceAssistantService {
                           startListening(context);
                         },
                         icon: const Icon(Icons.mic),
-                        label: const Text('మళ్లీ అడగండి'),
+                        label: Text(language == 'Telugu' ? 'మళ్లీ అడగండి' : 'Ask Again'),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: const Color(0xFF4CAF50),
                           side: const BorderSide(color: Color(0xFF4CAF50)),
@@ -463,7 +479,7 @@ class VoiceAssistantService {
                           backgroundColor: const Color(0xFF4CAF50),
                           foregroundColor: Colors.white,
                         ),
-                        child: const Text('సరి'),
+                        child: Text(language == 'Telugu' ? 'సరి' : 'OK'),
                       ),
                     ),
                   ],

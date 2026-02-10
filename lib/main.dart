@@ -5,14 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'localization/app_localizations_delegate.dart';
 import 'screens/splash_screen.dart';
 import 'screens/language_selection_screen.dart';
 import 'screens/home_screen.dart';
-import 'screens/auth/login_screen.dart';
-import 'screens/auth/signup_screen.dart';
-import 'screens/auth/forgot_password_screen.dart';
 import 'screens/camera_scanner_screen.dart';
 import 'screens/pro_tips_screen.dart';
 import 'screens/scan_result_screen.dart';
@@ -26,6 +24,7 @@ import 'screens/profile_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/onboarding/simple_onboarding_screen.dart';
 import 'providers/preferences_provider.dart';
+import 'providers/market_data_provider.dart';
 // import 'screens/crop_deal_screen.dart' as crop_deal;
 // import 'screens/schedule_screen.dart';
 // import 'screens/irrigation_screen.dart';
@@ -39,6 +38,9 @@ import 'widgets/bottom_navigation.dart';
 void main() async {
   // Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  await dotenv.load(fileName: ".env");
 
   try {
     // Initialize Firebase
@@ -71,8 +73,11 @@ void main() async {
   );
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => PreferencesProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => PreferencesProvider()),
+        ChangeNotifierProvider(create: (_) => MarketDataProvider()),
+      ],
       child: const GreenFarmApp(),
     ),
   );
@@ -131,7 +136,7 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Greendot Assistant - కిసాన్',
+      title: 'Green Life',
       debugShowCheckedModeBanner: false,
 
       // Localization
@@ -302,9 +307,6 @@ class _GreenFarmAppState extends State<GreenFarmApp> {
         '/': (context) => const SplashScreen(),
         '/onboarding': (context) => const SimpleOnboardingScreen(),
         '/settings': (context) => const SettingsScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/signup': (context) => const SignUpScreen(),
-        '/forgot-password': (context) => const ForgotPasswordScreen(),
         '/language': (context) => LanguageSelectionScreen(
           onLanguageSelected: setLocale,
         ),

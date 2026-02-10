@@ -3,10 +3,10 @@ import 'app_localizations.dart';
 
 class AppLocalizationsEn extends AppLocalizations {
   @override
-  String get appTitle => 'Greendot';
+  String get appTitle => 'Green Life';
 
   @override
-  String get welcome => 'Welcome to Greendot';
+  String get welcome => 'Welcome to Green Life';
 
   @override
   String get getStarted => 'Get Started';
@@ -323,4 +323,84 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stormy => 'Stormy';
+
+  // Onboarding
+  @override
+  String get setupFarm => 'Setup Your Farm 🌱';
+
+  @override
+  String get setupFarmSubtitle => "Let's set up your farm in just a minute";
+
+  @override
+  String get farmSize => '1. Your Farm Size';
+
+  @override
+  String get size => 'Size';
+
+  @override
+  String get whatDoYouGrow => '2. What do you grow?';
+
+  @override
+  String get chooseTheme => '3. Choose Your Theme';
+
+  @override
+  String get startFarming => 'Start Farming 🚀';
+
+  @override
+  String get skipForNow => 'Skip for now';
+
+  @override
+  String get acres => 'Acres';
+
+  @override
+  String get hectares => 'Hectares';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get system => 'System';
+
+  @override
+  String get rice => 'Rice';
+
+  @override
+  String get wheat => 'Wheat';
+
+  @override
+  String get maize => 'Maize';
+
+  @override
+  String get cotton => 'Cotton';
+
+  @override
+  String get vegetables => 'Vegetables';
+
+  // Market Prices
+  @override
+  String get mandiPrices => 'Mandi Prices 📊';
+
+  @override
+  String get searchCrops => 'Search crops (e.g. Cotton, Rice)';
+
+  @override
+  String get allStates => 'All States';
+
+  @override
+  String get allDistricts => 'All Districts';
+
+  @override
+  String get minPrice => 'Min';
+
+  @override
+  String get maxPrice => 'Max';
+
+  @override
+  String get modalPrice => 'Modal';
+
+  @override
+  String get noDataFound => 'No data found matches your filters.';
 }
